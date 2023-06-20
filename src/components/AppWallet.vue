@@ -4,20 +4,33 @@
             <p class="pagination__page">02</p>
         </div>
 
-        <v-title>Кошелёк криптовалют</v-title>
+        <div class="content">
+            <v-title>Кошелёк криптовалют</v-title>
+
+            <p>{{ RobotStore.coin }}</p>
+            <v-button @click="RobotStore.earnСoins()">Добывать</v-button>
+
+            <v-button @click="RobotStore.buyAccessory('biohand')">Купить</v-button>
+
+            <v-button @click="RobotStore.sellAccessory('biohand')">Продать</v-button>
+
+        </div>
     </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
 import VTitle from './UI/VTitle.vue'
+import { useRobotStore } from "../stores/RobotStore"
+import VButton from './UI/VButton.vue'
 
 export default defineComponent({
-  components: { VTitle },
+  components: { VTitle, VButton },
     setup () {
         
+        const RobotStore = useRobotStore();
 
-        return {}
+        return { RobotStore }
     }
 })
 </script>

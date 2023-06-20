@@ -1,0 +1,17 @@
+[
+    {
+        "name": "biohand",
+        "cost": 7
+
+    } ,
+    {
+        "name": "microchip",
+        "cost": 5
+        
+    } ,
+    {
+        "name": "soul",
+        "cost": 25
+        
+    } 
+]
