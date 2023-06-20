@@ -1,0 +1,11 @@
+<template>
+    <h3>
+        <slot></slot>
+    </h3>
+</template>
+
+<style scoped lang="scss">
+    h3 {
+        margin-bottom: 7.5vh;
+    }
+</style>

@@ -94,4 +94,55 @@ body {
     background: radial-gradient(82.33% 70.44% at 50% 0%, #26394D 0%, #212529 100%);
     min-height: 100vh;
     width: 100vw;
+    overflow-x: hidden;
+
+    font-family: 'Montserrat', sans-serif;
+    color: #FFFFFF;
+    font-style: normal;
+}
+
+/* WebKit value  */
+
+@media screen and (max-width: 1920px) and (min-width: 1025px)  {
+    h1 {
+        font-weight: 600;
+        font-size: 3.5rem;
+        line-height: 4.5rem;
+    }
+
+    h2 {
+        font-weight: 600;
+        font-size: 2rem;
+        line-height: 2.5rem;
+    }
+
+    h3 {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 2rem;
+    }
+
+    .info_text {
+        font-weight: 600;
+        font-size: 1.25rem;
+        line-height: 2rem;
+    }
+
+    p {
+        font-weight: 500;
+        font-size: 1rem;
+        line-height: 1.25rem;
+    }
+
+    .medium_text {
+        font-weight: 500;
+        font-size: .875rem;
+        line-height: 1.25rem;
+    }
+
+    .second_text {
+        font-weight: 400;
+        font-size: .75rem;
+        line-height: 1rem;
+    }
 }
