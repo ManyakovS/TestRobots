@@ -1,99 +1,102 @@
 import { defineStore } from 'pinia';
-import accessory from './JSON/accessory.json'
-import inventory from './JSON/inventory.json'
+import { ref } from 'vue'
+import accessoryJSON from './JSON/accessory.json'
+import inventoryJSON from './JSON/inventory.json'
 
-export const useRobotStore = defineStore('RobotStore', {
+export const useRobotStore = defineStore("RobotStore", () => {
 
-    state: () => {
-        return {
-            /* Параметры текста */
-            /* header */
-            header_text_button: 'Произвести биоробота',
+    const header_text_button: string = 'Произвести биоробота';
+    const homePage_text: string = 'Фабрика по производству биороботов';
 
-            /* home page */
-            homePage_text: 'Фабрика по производству биороботов',
+    const coin = ref(0);
+    const coin_limit: number = 100;
+    const coin_per_click: number = 1;
+    const coin_bust_status = ref(false);
+    const coin_bust: number = 5;
 
-            /*  */
+    const error_coin_limit = ref(false);
+    const error_not_enough_coins = ref(false);
+    const error_not_enough_accessory = ref(false);
 
+    const accessories = ref(accessoryJSON);
+    const inventory = ref(inventoryJSON);
 
+    const accessoryInDeveloping = ref({
+        type: 'FrontEnd',
+        Stabilizer: 'male',
 
-            /*  Магазин роботов */
+        installedBiohand: 0,
+        installedMicrochip: 0,
+        installedSoul: 0,
 
-            coin: 0,
-            coin_limit: 100,
-            coin_per_click: 1,
-            coin_bust_status: false,
-            coin_bust: 5,
+        requiredBiohand: 4,
+        requiredMicrochip: 4,
+        requiredSoul: 1,
+    });
 
-            error_coin_limit: false,
-            error_not_enough_coins: false,
-            error_not_enough_accessory: false,
+    const earnСoins = () => {
+        let coin_hash: number;
+        coin_bust_status.value == true ? coin_hash = coin.value + (coin_per_click * coin_bust) : coin_hash = coin.value + coin_per_click
 
-            accessory,
-            inventory,
+        if (coin_hash > coin_limit)
+            return error_coin_limit.value = true;
+        else
+            coin.value = coin_hash
+    };
+    const setAccessoryInInventory = (name: string, value: number) => {
+        const inventory_item: { name: string, costForSale: number, count: number } = inventory.value.find(i => i.name == name)!
+        inventory_item.count += value;
+    };
 
-            accessoryInDeveloping: {
-                type: 'FrontEnd',
-                Stabilizer: 'male',
+    const buyAccessory = (name: string) => {
+        const accessory: { name: string, cost: number } = accessories.value.find(a => a.name == name)!
 
-                installedBiohand: 0,
-                installedMicrochip: 0,
-                installedSoul: 0,
-
-                requiredBiohand: 4,
-                requiredMicrochip: 4,
-                requiredSoul: 1,
-            }
-
+        if (coin.value >= accessory.cost) {
+            coin.value -= accessory.cost
+            setAccessoryInInventory(name, 1)
         }
-    },
+        else {
+            error_not_enough_coins.value = true;
+        }
 
-    actions: {
-        earnСoins() {
-            let coin_hash: number;
-            this.coin_bust_status == true ? coin_hash = this.coin + (this.coin_per_click * this.coin_bust) : coin_hash = this.coin + this.coin_per_click
+    };
 
-            if(coin_hash > this.coin_limit)
-                return this.error_coin_limit = true;
+    const sellAccessory = (name: string) => {
+        const accessory: { name: string, costForSale: number, count: number } = inventory.value.find(i => i.name == name)!
+
+        let coin_hash = coin.value + accessory.costForSale;
+        if (accessory.count > 0) {
+            if (coin_hash <= coin_limit) {
+                coin.value = coin_hash
+                setAccessoryInInventory(name, -1)
+            }
             else
-                this.coin = coin_hash    
-        },
-
-        setAccessoryInInventory(name: string, value: number) {
-            const inventory_item : any = this.inventory.find(i => i.name == name)
-            inventory_item.count += value;
-        },
-
-        buyAccessory(name: string) {
-            const accessory : any = this.accessory.find(a => a.name == name)
-
-            if(accessory != undefined){
-
-                if(this.coin >= accessory.cost) {
-                    this.coin -= accessory.cost
-                    this.setAccessoryInInventory(name, 1)
-                }
-                else{
-                    this.error_not_enough_coins = true;
-                }
-
-            }
-        },
-
-        sellAccessory(name: string) {
-            const accessory : any = this.inventory.find(i => i.name == name)
-            
-            if(accessory != undefined){
-                if(accessory.count > 0) {
-                    this.coin += accessory.costForSale
-                    this.setAccessoryInInventory(name, -1)
-                }
-                else
-                    this.error_not_enough_accessory = true;
-            }
+                error_coin_limit.value = true;
         }
-
+        else
+            error_not_enough_accessory.value = true;
 
     }
-}
-)
+
+
+    return {
+        header_text_button,
+        homePage_text,
+        coin,
+        coin_limit,
+        coin_per_click,
+        coin_bust_status,
+        coin_bust,
+        error_coin_limit,
+        error_not_enough_accessory,
+        error_not_enough_coins,
+        accessories,
+        inventory,
+        accessoryInDeveloping,
+
+        earnСoins,
+        buyAccessory,
+        sellAccessory,
+
+    }
+})
