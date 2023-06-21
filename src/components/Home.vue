@@ -1,22 +1,15 @@
 <template>
-    <div class="home_page">
+    <div class="home">
 
-        <div class="pagination">
-            <p class="pagination__page">01</p>
-
-            <div class="pagination__scroll">
-                <span class="pagination__scroll_text">скоролл</span>
-                <span class="pagination__scroll_arrow"></span>
-            </div>
-        </div>
+        <pagination :page="'01'" :show-arrow="true"></pagination>
 
         <div class="content">
-            <div class="home_page__description">
+            <div class="home__description">
                 <h1 class="home_page__title">{{ RobotStore.homePage_text }}</h1>
                 <h3>класса «монитор-кресло»</h3>
             </div>
 
-            <span class="home_page__img"></span>
+            <span class="home__img"></span>
         </div>
 
     </div>
@@ -25,11 +18,12 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { useRobotStore } from "../stores/RobotStore"
+import Pagination from './Pagination.vue';
 import VButton from './UI/VButton.vue'
 
 
 export default defineComponent({
-    components: { VButton, },
+    components: { VButton, Pagination, },
     setup() {
         const RobotStore = useRobotStore();
 
@@ -39,41 +33,14 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-.home_page {
+.home {
     display: flex;
-    margin-top: 12.5vh;
-    height: 35.3vh;
+    margin-top: 10vh;
+    height: 30vh;
 
     .content {
         display: flex;
         align-items: center;
-    }
-
-    .pagination {
-        justify-content: space-between;
-        display: flex;
-        flex-direction: column;
-        height: 70%;
-        margin: auto 0 40px 0;
-
-        &__scroll {
-            display: flex;
-            flex-direction: row-reverse;
-            align-items: flex-end;
-            position: relative;
-            writing-mode: vertical-lr;
-            transform: rotate(180deg);
-
-            &_arrow {
-                margin-bottom: 6px;
-                transform: rotate(180deg);
-                display: block;
-                background-image: url(../assets/Arrow_bottom.svg);
-                height: 24px;
-                width: 24px;
-
-            }
-        }
     }
 
     &__description {

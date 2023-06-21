@@ -3,6 +3,7 @@
     <v-header></v-header>
     <home></home>
     <wallet></wallet>
+    <market></market>
   </div>
 </template>
 
@@ -10,6 +11,7 @@
 import Home from "./components/Home.vue";
 import VHeader from "./components/Header.vue";
 import Wallet from "./components/Wallet.vue";
+import Market from "./components/Market.vue";
 
 </script>
 
@@ -34,67 +36,6 @@ import Wallet from "./components/Wallet.vue";
 @media screen and (min-width: 320px) and (max-width: 768px) {
   .container {
     max-width: 312px;
-  }
-}
-
-/*
-.pagination {
-  width: 14.25%;
-  height: 60%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: left;
-
-  font-weight: 500;
-  font-size: 0.75rem;
-  line-height: 1.5rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-
-  color: #667380;
-
-
-
-  &__scroll {
-    display: flex;
-    flex-direction: row-reverse;
-    position: relative;
-    transform: rotate(-90deg);
-    left: -40px;
-
-
-    &_text {
-      left: -25px;
-      top: -20px;
-
-
-    }
-    &_arrow {
-      margin-right: 6px;
-      transform: rotate(90deg);
-      display: block;
-      background-image: url(./assets/Arrow_bottom.svg);
-      height: 24px;
-      width: 24px;
-      top: 30px;
-    }
-  }
-}
-*/
-
-.pagination {
-  width: 14.25%;
-  font-weight: 500;
-  font-size: 0.75rem;
-  line-height: 1.5rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-
-  color: #667380;
-
-  p {
-    line-height: 2rem;
   }
 }
 
