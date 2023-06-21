@@ -1,7 +1,9 @@
 <template>
-    <p class="info-text">{{ title }}</p>
-
-    <p class="sub-text">Стоимость: {{ cost }} монет</p>
+    <div class="description">
+        <p class="info-text">{{ title }}</p>
+    
+        <p class="sub-text">Стоимость: {{ cost }} монет</p>
+    </div>
 </template>
 
 <script lang="ts">
@@ -20,10 +22,10 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.info-text {
-    margin-top: 5vh;
-}
 
+.description {
+    text-align: center;
+}
 .sub-text {
     color: #A3B8CC;
 }

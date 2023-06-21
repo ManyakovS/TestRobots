@@ -4,6 +4,7 @@
     <home></home>
     <wallet></wallet>
     <market></market>
+    <stock></stock>
   </div>
 </template>
 
@@ -12,6 +13,7 @@ import Home from "./components/Home.vue";
 import VHeader from "./components/Header.vue";
 import Wallet from "./components/Wallet.vue";
 import Market from "./components/Market.vue";
+import Stock from "./components/Stock.vue";
 
 </script>
 

@@ -2,7 +2,7 @@
     <div class="market__item">
         <img :src="link" alt="">
 
-        <description-accessory :cost="cost" :title="title"/>
+        <description-accessory class="description" :cost="cost" :title="title"/>
 
         <v-button class="button" :disabled="isDisabled" @click="RobotStore.buyAccessory(name)">
             Установить
@@ -84,6 +84,10 @@ export default defineComponent({
 
     .button {
         margin-top: 2vh;
+    }
+
+    .description {
+        margin-top: 5vh;
     }
 }
 </style>
