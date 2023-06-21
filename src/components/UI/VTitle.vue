@@ -6,6 +6,6 @@
 
 <style scoped lang="scss">
     h3 {
-        margin-bottom: 7.5vh;
+        margin-bottom: 5.5vh;
     }
 </style>

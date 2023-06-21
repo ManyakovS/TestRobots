@@ -1,15 +1,15 @@
 <template>
   <div class="container">
-    <app-header></app-header>
-    <app-home></app-home>
-    <app-wallet></app-wallet>
+    <v-header></v-header>
+    <home></home>
+    <wallet></wallet>
   </div>
 </template>
 
 <script setup lang="ts">
-import AppHome from "./components/AppHome.vue";
-import AppHeader from "./components/AppHeader.vue";
-import AppWallet from "./components/AppWallet.vue";
+import Home from "./components/Home.vue";
+import VHeader from "./components/Header.vue";
+import Wallet from "./components/Wallet.vue";
 
 </script>
 

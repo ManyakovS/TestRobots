@@ -8,7 +8,7 @@ export const useRobotStore = defineStore("RobotStore", () => {
     const header_text_button: string = 'Произвести биоробота';
     const homePage_text: string = 'Фабрика по производству биороботов';
 
-    const coin = ref(0);
+    const coin = ref(5);
     const coin_limit: number = 100;
     const coin_per_click: number = 1;
     const coin_bust_status = ref(false);
@@ -76,6 +76,10 @@ export const useRobotStore = defineStore("RobotStore", () => {
         else
             error_not_enough_accessory.value = true;
 
+    };
+
+    const setCoinBustStatus = (value : boolean) : void => {
+        coin_bust_status.value = value
     }
 
 
@@ -97,6 +101,7 @@ export const useRobotStore = defineStore("RobotStore", () => {
         earnСoins,
         buyAccessory,
         sellAccessory,
+        setCoinBustStatus
 
     }
 })
