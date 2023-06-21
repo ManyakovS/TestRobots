@@ -5,35 +5,35 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue'
+import { defineComponent, computed} from 'vue'
 
 export default defineComponent({
     props: {
         type: { type: String, default: 'fill' },
-        status: { type: Boolean, default: true },
+        disabled: { type: Boolean },
         color: { type: String, default: 'orange' }
     },
 
 
-    setup({ type, status, color }: any) {
+    setup(props) {
 
         const buttonClasses = computed(() => {
             const returnedClass: Array<String> = []
-            if (type == 'fill') {
+            if (props.type == 'fill') {
 
-                if (status)
+                if (!props.disabled)
                     returnedClass.push('button_fill_orange')
                 else
                     returnedClass.push('button_fill_disabled')
             }
 
-            else if (type == 'stroke') {
-                if (status) {
+            else if (props.type == 'stroke') {
+                if (!props.disabled) {
 
-                    if (color == 'orange')
+                    if (props.color == 'orange')
                         returnedClass.push('button_stroke_orange')
 
-                    else if (color == 'blue')
+                    else if (props.color == 'blue')
                         returnedClass.push('button_stroke_blue')
                 }
                 else
@@ -54,6 +54,7 @@ export default defineComponent({
     font-size: 1rem;
     line-height: 1.5rem;
     text-align: center;
+    min-width: 236px;
 
     padding: 12px 41.5px;
     border-radius: 60px;

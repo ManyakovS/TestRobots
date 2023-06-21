@@ -8,7 +8,7 @@ export const useRobotStore = defineStore("RobotStore", () => {
     const header_text_button: string = 'Произвести биоробота';
     const homePage_text: string = 'Фабрика по производству биороботов';
 
-    const coin = ref(5);
+    const coin = ref(1);
     const coin_limit: number = 100;
     const coin_per_click: number = 1;
     const coin_bust_status = ref(false);

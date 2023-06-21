@@ -1,16 +1,19 @@
 [
     {
         "name": "biohand",
+        "title": "Биорука",
         "cost": 7
 
     } ,
     {
         "name": "microchip",
+        "title": "Микрочип",
         "cost": 5
         
     } ,
     {
         "name": "soul",
+        "title": "Душа",
         "cost": 25
         
     } 

@@ -122,7 +122,7 @@ body {
         line-height: 2rem;
     }
 
-    .info_text {
+    .info-text {
         font-weight: 600;
         font-size: 1.25rem;
         line-height: 2rem;
@@ -134,13 +134,13 @@ body {
         line-height: 1.25rem;
     }
 
-    .medium_text {
+    .medium-text {
         font-weight: 500;
         font-size: .875rem;
         line-height: 1.25rem;
     }
 
-    .second_text {
+    .second-text {
         font-weight: 400;
         font-size: .75rem;
         line-height: 1rem;
