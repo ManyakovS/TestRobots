@@ -31,7 +31,7 @@ export default defineComponent({
     &__coin {
         display: block;
         margin-right: -8px;
-        background-image: url(../assets/coin.svg);
+        background-image: url(../../assets/coin.svg);
         width: 16px;
         height: 20px;
 

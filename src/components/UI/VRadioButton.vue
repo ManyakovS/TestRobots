@@ -1,29 +1,19 @@
 <template>
     <div>
-        <input type="radio" v-model="props.value" :id="props.id" @change="updateModelValue">
-        <label :for="props.id">
+        <input type="radio" :value="props.value" v-model="radioGroupValue" :id="props.value"/>
+        <label :for="props.value">
             <slot></slot>
         </label>
     </div>
 </template>
 
 <script setup lang="ts">
-const props = defineProps({
-    id: {
-        required: true,
-        type: String
-    },
-    value: {
-        required: true,
-        type: String,
-    }
-})
+import { inject } from 'vue'
 
-const emit = defineEmits(['update:modelValue'])
 
-const updateModelValue = () => {
-    emit("update:modelValue", props.value)
-}
+const props = defineProps(['value'])
+
+const radioGroupValue = inject('radioGroupValue')
 
 </script>
 
@@ -38,8 +28,8 @@ input[type="radio"]:checked+label,
 input[type="radio"]:not(:checked)+label {
     display: inline-block;
     position: relative;
-    padding-left: 28px;
-    line-height: 20px;
+    padding-left: 32px;
+    line-height: 24px;
     cursor: pointer;
 }
 
@@ -49,10 +39,10 @@ input[type="radio"]:not(:checked)+label:before {
     position: absolute;
     left: 0px;
     top: 0px;
-    width: 18px;
-    height: 18px;
-    border: 1px solid #dddddd;
-    background-color: #ffffff;
+    width: 24px;
+    height: 24px;
+    border: 2px solid #A3B8CC;
+    background-color: transparent;
 }
 
 input[type="radio"]:checked+label:before,
@@ -72,12 +62,12 @@ input[type="radio"]:not(:checked)+label:after {
 
 input[type="radio"]:checked+label:after,
 input[type="radio"]:not(:checked)+label:after {
-    left: 5px;
-    top: 5px;
-    width: 10px;
-    height: 10px;
+    left: 4px;
+    top: 4px;
+    width: 16px;
+    height: 16px;
     border-radius: 100%;
-    background-color: #e145a3;
+    background-color: #FF7F22;
 }
 
 input[type="radio"]:not(:checked)+label:after {

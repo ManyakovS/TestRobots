@@ -73,6 +73,7 @@ const buttonClasses = computed(() => {
 
     &_disabled {
         background: #4C5865;
+        cursor: default;
     }
 }
 
@@ -114,6 +115,7 @@ const buttonClasses = computed(() => {
     &_disabled {
         background: transparent;
         border: 2px solid #4C5865;
+        cursor: default;
     }
 }
 </style>
