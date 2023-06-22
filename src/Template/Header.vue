@@ -2,26 +2,16 @@
     <header>
         <span class="logo"></span>
 
-        <v-button :color="'orange'" :type="'stroke'">{{ RobotStore.header_text_button }}</v-button>
+        <v-button :color="'orange'" :type="'stroke'">{{ robotStore.headerTextButton }}</v-button>
     </header>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-import VButton from './UI/VButton.vue'
-
+<script setup lang="ts">
+import VButton from '../components/UI/VButton.vue'
 import {useRobotStore} from "../stores/RobotStore"
 
-export default defineComponent({
-  components: { VButton },
-    setup () {
-        
+const robotStore = useRobotStore();
 
-        const RobotStore = useRobotStore();
-
-        return {RobotStore}
-    }
-})
 </script>
 
 <style scoped lang="scss">

@@ -5,15 +5,17 @@
     <wallet></wallet>
     <market></market>
     <stock></stock>
+    <manufacture></manufacture>
   </div>
 </template>
 
 <script setup lang="ts">
-import Home from "./components/Home.vue";
-import VHeader from "./components/Header.vue";
-import Wallet from "./components/Wallet.vue";
-import Market from "./components/Market.vue";
-import Stock from "./components/Stock.vue";
+import Home from "./Template/Home.vue";
+import VHeader from "./Template/Header.vue";
+import Wallet from "./Template/Wallet.vue";
+import Market from "./Template/Market.vue";
+import Stock from "./Template/Stock.vue";
+import Manufacture from "./Template/Manufacture.vue";
 
 </script>
 

@@ -1,17 +1,15 @@
 <template>
-    <h3 class="balance"><span>{{ coins }}</span> biorobo монет</h3>
+    <h3 class="balance"><span>{{ props.coins }}</span> biorobo монет</h3>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { defineComponent} from 'vue'
 
-export default defineComponent({
-    props: {
-        coins: {
+const props = defineProps({
+    coins: {
+            type: Number,
             required: true,
-            type: Number
         }
-    }
 })
 </script>
 

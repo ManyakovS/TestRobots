@@ -1,22 +1,22 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue'
-import accessoryJSON from './JSON/accessory.json'
-import inventoryJSON from './JSON/inventory.json'
+import accessoryJSON from '../stores/JSON/accessory.json'
+import inventoryJSON from '../stores/JSON/inventory.json'
 
 export const useRobotStore = defineStore("RobotStore", () => {
 
-    const header_text_button: string = 'Произвести биоробота';
-    const homePage_text: string = 'Фабрика по производству биороботов';
+    const headerTextButton: string = 'Произвести биоробота';
+    const homePageText: string = 'Фабрика по производству биороботов';
 
     const coin = ref(1);
-    const coin_limit: number = 100;
-    const coin_per_click: number = 1;
-    const coin_bust_status = ref(false);
-    const coin_bust: number = 5;
+    const coinLimit: number = 100;
+    const coinPerClick: number = 1;
+    const coinBustStatus = ref(false);
+    const coinBusted: number = 5;
 
-    const error_coin_limit = ref(false);
-    const error_not_enough_coins = ref(false);
-    const error_not_enough_accessory = ref(false);
+    const errorCoinLimit = ref(false);
+    const errorNotEnoughCoins = ref(false);
+    const errorNotEnoughAccessory = ref(false);
 
     const accessories = ref(accessoryJSON);
     const inventory = ref(inventoryJSON);
@@ -36,16 +36,16 @@ export const useRobotStore = defineStore("RobotStore", () => {
 
     const earnСoins = () => {
         let coin_hash: number;
-        coin_bust_status.value == true ? coin_hash = coin.value + (coin_per_click * coin_bust) : coin_hash = coin.value + coin_per_click
+        coinBustStatus.value == true ? coin_hash = coin.value + coinBusted : coin_hash = coin.value + coinPerClick
 
-        if (coin_hash > coin_limit)
-            return error_coin_limit.value = true;
+        if (coin_hash > coinLimit)
+            return errorCoinLimit.value = true;
         else
             coin.value = coin_hash
     };
     const setAccessoryInInventory = (name: string, value: number) => {
-        const inventory_item: { name: string, costForSale: number, count: number } = inventory.value.find(i => i.name == name)!
-        inventory_item.count += value;
+        const inventoryItem: { name: string, cost: number, count: number } = inventory.value.find(i => i.name == name)!
+        inventoryItem.count += value;
     };
 
     const buyAccessory = (name: string) => {
@@ -56,44 +56,44 @@ export const useRobotStore = defineStore("RobotStore", () => {
             setAccessoryInInventory(name, 1)
         }
         else {
-            error_not_enough_coins.value = true;
+            errorNotEnoughCoins.value = true;
         }
 
     };
 
     const sellAccessory = (name: string) => {
-        const accessory: { name: string, costForSale: number, count: number } = inventory.value.find(i => i.name == name)!
+        const accessory: { name: string, cost: number, count: number } = inventory.value.find(i => i.name == name)!
 
-        let coin_hash = coin.value + accessory.costForSale;
+        let coin_hash = coin.value + accessory.cost;
         if (accessory.count > 0) {
-            if (coin_hash <= coin_limit) {
+            if (coin_hash <= coinLimit) {
                 coin.value = coin_hash
                 setAccessoryInInventory(name, -1)
             }
             else
-                error_coin_limit.value = true;
+                errorCoinLimit.value = true;
         }
         else
-            error_not_enough_accessory.value = true;
+            errorNotEnoughAccessory.value = true;
 
     };
 
     const setCoinBustStatus = (value : boolean) : void => {
-        coin_bust_status.value = value
+        coinBustStatus.value = value
     }
 
 
     return {
-        header_text_button,
-        homePage_text,
+        headerTextButton,
+        homePageText,
         coin,
-        coin_limit,
-        coin_per_click,
-        coin_bust_status,
-        coin_bust,
-        error_coin_limit,
-        error_not_enough_accessory,
-        error_not_enough_coins,
+        coinLimit,
+        coinPerClick,
+        coinBustStatus,
+        coinBusted,
+        errorCoinLimit,
+        errorNotEnoughAccessory,
+        errorNotEnoughCoins,
         accessories,
         inventory,
         accessoryInDeveloping,

@@ -5,7 +5,7 @@
 
         <div class="content">
             <div class="home__description">
-                <h1 class="home_page__title">{{ RobotStore.homePage_text }}</h1>
+                <h1 class="home_page__title">{{ robotStore.homePageText }}</h1>
                 <h3>класса «монитор-кресло»</h3>
             </div>
 
@@ -15,21 +15,11 @@
     </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script setup lang="ts">
 import { useRobotStore } from "../stores/RobotStore"
-import Pagination from './Pagination.vue';
-import VButton from './UI/VButton.vue'
+import Pagination from '../components/Pagination.vue';
 
-
-export default defineComponent({
-    components: { VButton, Pagination, },
-    setup() {
-        const RobotStore = useRobotStore();
-
-        return { RobotStore }
-    }
-})
+const robotStore = useRobotStore();
 </script>
 
 <style scoped lang="scss">

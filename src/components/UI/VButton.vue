@@ -4,48 +4,41 @@
     </button>
 </template>
 
-<script lang="ts">
-import { defineComponent, computed} from 'vue'
+<script setup lang="ts">
+import { computed } from 'vue'
 
-export default defineComponent({
-    props: {
-        type: { type: String, default: 'fill' },
-        disabled: { type: Boolean },
-        color: { type: String, default: 'orange' }
-    },
-
-
-    setup(props) {
-
-        const buttonClasses = computed(() => {
-            const returnedClass: Array<String> = []
-            if (props.type == 'fill') {
-
-                if (!props.disabled)
-                    returnedClass.push('button_fill_orange')
-                else
-                    returnedClass.push('button_fill_disabled')
-            }
-
-            else if (props.type == 'stroke') {
-                if (!props.disabled) {
-
-                    if (props.color == 'orange')
-                        returnedClass.push('button_stroke_orange')
-
-                    else if (props.color == 'blue')
-                        returnedClass.push('button_stroke_blue')
-                }
-                else
-                    returnedClass.push('button_stroke_disabled')
-            }
-
-            return returnedClass
-        })
-
-        return { buttonClasses }
-    }
+const props = defineProps({
+    type: { type: String, default: 'fill' },
+    disabled: { type: Boolean },
+    color: { type: String, default: 'orange' }
 })
+
+const buttonClasses = computed(() => {
+    const returnedClass: Array<String> = []
+    if (props.type == 'fill') {
+
+        if (!props.disabled)
+            returnedClass.push('button_fill_orange')
+        else
+            returnedClass.push('button_fill_disabled')
+    }
+
+    else if (props.type == 'stroke') {
+        if (!props.disabled) {
+
+            if (props.color == 'orange')
+                returnedClass.push('button_stroke_orange')
+
+            else if (props.color == 'blue')
+                returnedClass.push('button_stroke_blue')
+        }
+        else
+            returnedClass.push('button_stroke_disabled')
+    }
+
+    return returnedClass
+})
+
 </script>
 
 <style scoped lang="scss">
@@ -87,7 +80,8 @@ export default defineComponent({
     background-color: transparent;
 
     &_blue {
-        border: 2px solid #22B3E3; /*ПОФИКСИТЬ*/
+        border: 2px solid #22B3E3;
+        /*ПОФИКСИТЬ*/
         color: #7CDAF9;
 
         &:hover {
@@ -122,5 +116,4 @@ export default defineComponent({
         border: 2px solid #4C5865;
     }
 }
-
 </style>

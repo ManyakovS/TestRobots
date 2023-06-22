@@ -1,19 +1,30 @@
 <template>
     <div>
-        <input type="radio" name="rb" id="rb3"> <label for="rb3">Переключатель 3</label>
+        <input type="radio" v-model="props.value" :id="props.id" @change="updateModelValue">
+        <label :for="props.id">
+            <slot></slot>
+        </label>
     </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-    setup() {
-
-
-        return {}
+<script setup lang="ts">
+const props = defineProps({
+    id: {
+        required: true,
+        type: String
+    },
+    value: {
+        required: true,
+        type: String,
     }
 })
+
+const emit = defineEmits(['update:modelValue'])
+
+const updateModelValue = () => {
+    emit("update:modelValue", props.value)
+}
+
 </script>
 
 <style scoped lang="scss">
