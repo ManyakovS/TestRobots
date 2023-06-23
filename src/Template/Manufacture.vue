@@ -9,21 +9,25 @@
             <div class="manufacture__group">
 
                 <div class="radio-groups">
-                    <v-radio-group :list="robotStore.types" v-model="robotStore.accessoryInDeveloping.type">Тип биоробота</v-radio-group>
-    
-                    <v-radio-group :list="robotStore.stabilizers" v-model="robotStore.accessoryInDeveloping.stabilizer">Стабилизатор</v-radio-group>
+                    <v-radio-group :list="robotStore.types" v-model="robotStore.accessoryInDeveloping.type">Тип
+                        биоробота</v-radio-group>
+
+                    <v-radio-group :list="robotStore.stabilizers"
+                        v-model="robotStore.accessoryInDeveloping.stabilizer">Стабилизатор</v-radio-group>
                 </div>
 
                 <div class="group__components">
-                    <components-list v-for="component in robotStore.accessoryInDeveloping.components" :key="component.type" :component="component"></components-list>
+                    <components-list v-for="component in robotStore.accessoryInDeveloping.components" :key="component.type"
+                        :component="component"></components-list>
                 </div>
 
                 <div class="robot">
                     <img :src="link" alt="robot">
                 </div>
 
-                <div class="complete-button"> 
-                    <v-button :type="'stroke'" :color="'orange'" :disabled="!robotStore.AccessoryCanCompleted" @click="robotStore.produceRobot()">Произвести за 10 монет</v-button>
+                <div class="complete-button">
+                    <v-button :type="'stroke'" :color="'orange'" :disabled="!robotStore.AccessoryCanCompleted"
+                        @click="robotStore.produceRobot()">Произвести за 10 монет</v-button>
                 </div>
 
                 <div class="text-help">
@@ -33,9 +37,9 @@
 
             </div>
 
-            
+
         </div>
-        
+
     </div>
 </template>
 
@@ -55,15 +59,21 @@ const robotStore = useRobotStore();
 const components = robotStore.accessoryInDeveloping.components
 
 const link = computed(() => {
-    if(robotStore.accessoryCompleted)
-        return `src/assets/Robots/Completed/FrontMale.png`
+    let status;
+    let stabilizer = robotStore.accessoryInDeveloping.stabilizer
+    let type = robotStore.accessoryInDeveloping.type
 
-    if(!robotStore.AccessoryCanCompleted)
-        return `src/assets/Robots/CanNotProduced/FrontMale.png`
+    if (!robotStore.AccessoryCanCompleted)
+        status = 'CanNotProduced'
 
-    if(robotStore.AccessoryCanCompleted)
-        return `src/assets/Robots/CanProduced/FrontMale.png`
-        
+    if (robotStore.AccessoryCanCompleted)
+        status = 'CanProduced'
+
+    if (robotStore.accessoryCompleted)
+        status = 'Completed'
+
+    return `src/assets/Robots/${status}/${type}${stabilizer}.png`
+
 })
 
 
@@ -73,54 +83,53 @@ const link = computed(() => {
 </script>
 
 <style scoped lang="scss">
-    .manufacture {
-        display: flex;
-        margin-top: 9vh;
-        height: 70vh;
+.manufacture {
+    display: flex;
+    margin-top: 9vh;
+    height: 70vh;
+}
+
+.manufacture__group {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 30px;
+
+    >div {
+        width: 100%;
     }
 
-    .manufacture__group {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        grid-template-rows: repeat(3, 1fr);
-        gap: 30px;
+    .radio-groups {
+        grid-row: span 2 / span 2;
+    }
 
-        >div {
+    .group__components {
+        grid-row: span 2 / span 2;
+    }
+
+    .robot {
+        grid-row: span 3 / span 3;
+        position: relative;
+
+        img {
+            position: absolute;
+            bottom: -30px;
             width: 100%;
-        }
-
-        .radio-groups {
-            grid-row: span 2 / span 2;
-        }
-
-        .group__components {
-            grid-row: span 2 / span 2;
-        }
-
-        .robot {
-            grid-row: span 3 / span 3;
-            position: relative;
-
-            img {
-                position: absolute;
-                bottom: -30px;
-                width: 100%;
-                object-fit: contain;
-            }
-        }
-
-        .complete-button {
-            grid-row: 3/4;
-            display: flex;
-            align-items: flex-end;
-
-        }
-        
-        .text-help {
-            grid-column: 2/3;
-            grid-row: 3/4;
-            display: flex;
-            align-items: flex-end;
+            object-fit: contain;
         }
     }
-</style>
+
+    .complete-button {
+        grid-row: 3/4;
+        display: flex;
+        align-items: flex-end;
+
+    }
+
+    .text-help {
+        grid-column: 2/3;
+        grid-row: 3/4;
+        display: flex;
+        align-items: flex-end;
+    }
+}</style>
