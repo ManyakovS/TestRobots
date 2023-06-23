@@ -2,7 +2,7 @@
     <header>
         <span class="logo"></span>
 
-        <v-button :color="'orange'" :type="'stroke'">{{ robotStore.headerTextButton }}</v-button>
+        <v-button :color="'orange'" :type="'stroke'" @click="scrollTo">{{ robotStore.headerTextButton }}</v-button>
     </header>
 </template>
 
@@ -11,6 +11,13 @@ import VButton from '../components/UI/VButton.vue'
 import {useRobotStore} from "../stores/RobotStore"
 
 const robotStore = useRobotStore();
+
+const scrollTo = () => {
+    window.scrollTo({
+    top: 10000,
+    behavior: 'smooth'
+});
+}
 
 </script>
 

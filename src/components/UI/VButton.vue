@@ -47,9 +47,10 @@ const buttonClasses = computed(() => {
     font-size: 1rem;
     line-height: 1.5rem;
     text-align: center;
-    min-width: 236px;
+    width: 236px;
+    height: 48px;
 
-    padding: 12px 41.5px;
+    /*padding: 12px 41.5px;*/
     border-radius: 60px;
 
     transition: all .5s ease-out;

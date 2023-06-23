@@ -7,6 +7,7 @@
         color: #FF7F22;
         border-bottom: 1px solid #FF7F22;
         transition: all .05s ease-in;
+        max-width: fit-content;
 
         &:hover {
             color: #FF5722;

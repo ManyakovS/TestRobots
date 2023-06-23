@@ -42,10 +42,11 @@ const robotStore = useRobotStore();
 
     .earn_coins {
         margin-top: 4vh;
-        width: 18vw;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+        width: 25vw;
+        max-width: 350px;
+        display: grid;
+        grid-template-columns: 1fr 2.5fr;
+        gap: 20px
     }
  
 </style>

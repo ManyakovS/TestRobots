@@ -48,8 +48,8 @@ p {
 
 .radio-group {
     width: 100%;
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
 }
 
 </style>

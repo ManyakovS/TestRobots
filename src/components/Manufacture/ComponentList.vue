@@ -1,77 +1,84 @@
 <template>
     <div class="list">
-        <v-check-box-icon v-for="i in props.count" :key="i" :id="`${props.type}-checkbox-${i}`" :type="props.type"
-            :isDisabled="status[i - 1]" />
+        <v-check-box-icon v-for="i in props.component.required" :key="i" :id="`${props.component.type}-checkbox-${i}`" :type="props.component.type"
+            :isDisabled="status[i - 1]" 
+            @toggle="toggleComponent"/>
     </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue'
+import { ref, watch, computed, PropType } from 'vue'
 import { useRobotStore } from "../../stores/RobotStore"
 import VCheckBoxIcon from '../UI/VCheckBoxIcon.vue';
+import Components from '../../Types/Components'
 
 const robotStore = useRobotStore();
 
 const props = defineProps({
-    count: {
-        type: Number,
-        required: true
-    },
-    type: {
-        required: true,
-        type: String,
-        validator(value: string) {
-            return ['microchip', 'soul', 'biohand'].includes(value)
-        }
-    }
+    component: Object as PropType<Components>
 })
 
-let complete = ref<number>(0)
-const item = robotStore.inventory.find(i => i.name == props.type)
+let complete = props.component.completed
+
+let installed = computed(() => {return props.component.installed})
+let available = computed(() => {return props.component.available})
+
 let status = ref([true, true, true, true])
 
 const enableItem = () => {
 
-    if (complete.value < props.count) {
-
-        if (item?.count! - complete.value > 0) {
-
-            status.value[complete.value] = false
-            complete.value++
+    if (available.value <= props.component.required) {
+        if (available.value - installed.value > 0) {
+            status.value[available.value - 1] = false
         }
     }
-    else
-        complete.value++
-
-
     return status;
 }
 
 const disableItem = () => {
 
-    if (complete.value > props.count) {
-        complete.value--
-    }
-    else {
-        if (complete.value - item?.count! >= 0) {
-            console.log(complete.value)
-
-            status.value[complete.value - 1] = true
-            complete.value--
+    if (available.value <= props.component.required) {
+        if (installed.value - available.value <= 0) {
+            status.value[available.value] = true
         }
     }
-
     return status;
 }
 
+const toggleComponent = (id: string, status: boolean) => {
+    let type: string = id.split('-')[0];
+    if(status)
+        robotStore.installComponent(type)
+    else
+        robotStore.putAwayComponent(type)
+}
+
 watch(
-    () => item?.count,
+    () => available.value,
     (newValue, oldValue) => {
         if (newValue! > oldValue!) {
             status = enableItem()
         }
         else {
             status = disableItem()
+        }
+    },
+    { deep: true }
+)
+
+watch(
+    () => installed.value,
+    () => {
+        robotStore.setCompleted(props.component.type)
+    },
+    { deep: true }
+)
+
+watch(
+    () => robotStore.accessoryCompleted.value,
+    () => {
+        for (let index = 0; index < status.value.length; index++) {
+            status.value[index] = true;
         }
     },
     { deep: true }

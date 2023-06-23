@@ -34,10 +34,10 @@ const props = defineProps({
     }
 })
 
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits(['toggle'])
 
 const updateModelValue = () => {
-    emit("update:modelValue", value.value)
+    emit("toggle", props.id, value.value)
 }
 
 const value = ref(false);
@@ -48,7 +48,6 @@ watch(
         if(newValue) {
             let input = document.querySelector(`#${props.id}`)
             input.checked = false
-            console.log('х')
         }
     },
     { deep: true }
