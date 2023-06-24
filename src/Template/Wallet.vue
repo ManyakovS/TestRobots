@@ -13,7 +13,7 @@
                 <v-link @click="robotStore.earnСoins()">Нацыганить</v-link>
 
                 <v-check-box v-model="robotStore.coinBustStatus" :id="'coin-bust'">
-                    Цыганить по 5 монет
+                    Цыганить по {{ getNoun(robotStore.coinBusted, "монете", "монеты", "монет") }}
                 </v-check-box>
             </div>
         </div>
@@ -22,6 +22,7 @@
 
 <script setup lang="ts">
 import { useRobotStore } from "../stores/RobotStore"
+import { getNoun }  from '../DeclensionOfNouns/declension'
 
 import VTitle from '../components/UI/VTitle.vue'
 import VButton from '../components/UI/VButton.vue'

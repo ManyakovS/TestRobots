@@ -27,12 +27,11 @@
 
                 <div class="complete-button">
                     <v-button :type="'stroke'" :color="'orange'" :disabled="!robotStore.AccessoryCanCompleted"
-                        @click="robotStore.produceRobot()">Произвести за 10 монет</v-button>
+                        @click="robotStore.produceRobot()">Произвести за {{getNoun(robotStore.accessoryCost, "монета", "монеты", "монет")}}</v-button>
                 </div>
 
-                <div class="text-help">
-                    <p>Для производства биоробота не хватает {{ robotStore.accessoryInDeveloping.component }} биоруки,
-                        3 микрочипа и 1 души</p>
+                <div class="text-help" v-if="!(getMissingComponent == '')">
+                    <p>Для производства биоробота не хватает {{ getMissingComponent }}</p>
                 </div>
 
             </div>
@@ -51,6 +50,7 @@ import VRadioGroup from '../components/VRadioGroup.vue'
 import VCheckBoxIcon from '../components/UI/VCheckBoxIcon.vue'
 import VButton from '../components/UI/VButton.vue'
 import { useRobotStore } from '../stores/RobotStore'
+import { getNounForName, getPunctuation, getNoun } from '../DeclensionOfNouns/declension'
 
 import ComponentsList from '../components/Manufacture/ComponentList.vue'
 
@@ -76,12 +76,23 @@ const link = computed(() => {
 
 })
 
-const getCount = (name : string) => {
-    let component = robotStore.accessoryInDeveloping.components.find(c => c.name == name);
-    
-    return component?.required! - component?.available!
-}
+const getCount = (type: string): number => {
+    let component = robotStore.accessoryInDeveloping.components.find(c => c.type == type);
+    let returnedCount = component?.required! - component?.available!
+    return returnedCount != undefined ? returnedCount : 0
+};
 
+const getMissingComponent = computed(() => {
+    let returnedStr = ''
+    const components = robotStore.accessoryInDeveloping.components.filter(c => c.available + c.installed < c.required)
+    let length = components.length
+    for (let index = 0; index < length; index++) {
+        const type = components[index].type
+        
+        returnedStr = returnedStr + `${getPunctuation(index, length)} ${getNounForName(getCount(type), type)}` 
+    }
+    return returnedStr
+})
 
 
 
@@ -138,4 +149,5 @@ const getCount = (name : string) => {
         display: flex;
         align-items: flex-end;
     }
-}</style>
+}
+</style>

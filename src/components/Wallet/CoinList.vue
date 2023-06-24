@@ -1,26 +1,22 @@
 <template>
     <div class="coins-list"> 
-        <span class="coins-list__coin" :style="{'z-index': getIndex(coin)}" v-for="coin in count" :key="coin"></span>
+        <span class="coins-list__coin" :style="{'z-index': getIndex(coin)}" v-for="coin in  props.count" :key="coin"></span>
     </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script setup lang="ts">
 
-export default defineComponent({
-    props: {
-        count: {
+const props = defineProps({
+    count: {
             required: true,
             type: Number
         }
-    },
-    setup ({count}) {
-        const getIndex = (index: number) : number => {
-            return count - index
-        }
-        return {getIndex}
-    }
 })
+
+const getIndex = (index: number) : number => {
+    return props.count - index
+}
+
 </script>
 
 <style scoped lang="scss">
