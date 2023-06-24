@@ -1,18 +1,20 @@
 <template>
     <div>
-        <input type="checkbox" v-model="value" :id="props.id" @change="updateModelValue" :disabled="props.isDisabled">
-        <label :class="{'disabled': props.isDisabled}" :for="props.id">
+        <input type="checkbox" v-model="value" :id="props.id" @change="updateModelValue" :disabled="isDisabled">
+        <label :class="{ 'disabled': isDisabled }" :for="props.id">
             <slot></slot>
-            <microchip v-if="props.type ==='microchip'" class="icon" :class="{'icon__disabled': props.isDisabled}"></microchip>
-            <soul v-else-if="props.type ==='soul'" class="icon" :class="{'icon__disabled': props.isDisabled}"></soul>
-            <biohand v-else-if="props.type ==='biohand'" class="icon" :class="{'icon__disabled': props.isDisabled}"></biohand>
-            
+            <microchip v-if="props.type === 'microchip'" class="icon" :class="{ 'icon__disabled': isDisabled }">
+            </microchip>
+            <soul v-else-if="props.type === 'soul'" class="icon" :class="{ 'icon__disabled': isDisabled }"></soul>
+            <biohand v-else-if="props.type === 'biohand'" class="icon" :class="{ 'icon__disabled': isDisabled }">
+            </biohand>
+
         </label>
     </div>
 </template>
 
 <script setup lang="ts">
-import { watch, ref } from 'vue'
+import { watch, ref, computed } from 'vue'
 import Microchip from '../SVG/Microchip.vue'
 import Soul from '../SVG/Soul.vue'
 import Biohand from '../SVG/Biohand.vue'
@@ -25,33 +27,53 @@ const props = defineProps({
     type: {
         required: true,
         type: String,
-        validator(value:string) { return ['microchip', 'soul', 'biohand'].includes(value)
-    }},
+        validator(value: string) {
+            return ['microchip', 'soul', 'biohand'].includes(value)
+        }
+    },
     isDisabled: {
         required: true,
-        type: Boolean,
-        default: true,
+        type: String,
+        validator(value: string) {
+            return ['disabled', 'available', 'installed'].includes(value)
+        }
     }
 })
 
 const emit = defineEmits(['toggle'])
 
 const updateModelValue = () => {
-    emit("toggle", props.id, value.value)
+    let status;
+    value.value == true ? status = 'installed' : status = 'available';
+    emit("toggle", props.id, status)
+
 }
 
 const value = ref(false);
 
+const input = document.querySelector(`#${props.id}`)
+
 watch(
     () => props.isDisabled,
     (newValue) => {
-        if(newValue) {
+        if (newValue) {
             let input = document.querySelector(`#${props.id}`)
             input.checked = false
         }
     },
     { deep: true }
 )
+
+const isDisabled = computed(() => {
+    if(props.isDisabled == 'disabled')
+        return true
+    else if(props.isDisabled == 'installed') {
+        let input = document.querySelector(`#${props.id}`)
+        input.checked = true
+    }
+    else
+        return false
+})
 
 
 </script>
@@ -101,15 +123,15 @@ input[type="checkbox"]:not(:checked)+label:before {
         cursor: default;
     }
 }
+
 .disabled::before {
     cursor: default !important;
 }
 
 
-input[type="checkbox"]:checked+label > .icon,
+input[type="checkbox"]:checked+label>.icon,
 input[type="checkbox"]:checked+label:before,
-.icon
-{
+.icon {
     -webkit-transition: all 0.4s ease;
     -moz-transition: all 0.4s ease;
     -o-transition: all 0.4s ease;
@@ -117,9 +139,9 @@ input[type="checkbox"]:checked+label:before,
 }
 
 input[type="checkbox"]:checked+label:before {
-    border: 2px solid  #FF7F22;
+    border: 2px solid #FF7F22;
 }
-input[type="checkbox"]:checked+label > .icon {
+
+input[type="checkbox"]:checked+label>.icon {
     fill: #FF7F22;
-}
-</style>
+}</style>

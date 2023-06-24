@@ -31,7 +31,7 @@
                 </div>
 
                 <div class="text-help">
-                    <p>Для производства биоробота не хватает 2 биоруки,
+                    <p>Для производства биоробота не хватает {{ robotStore.accessoryInDeveloping.component }} биоруки,
                         3 микрочипа и 1 души</p>
                 </div>
 
@@ -75,6 +75,12 @@ const link = computed(() => {
     return `src/assets/Robots/${status}/${type}${stabilizer}.png`
 
 })
+
+const getCount = (name : string) => {
+    let component = robotStore.accessoryInDeveloping.components.find(c => c.name == name);
+    
+    return component?.required! - component?.available!
+}
 
 
 
