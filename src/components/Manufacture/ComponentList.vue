@@ -28,16 +28,19 @@ let status = ref([true, true, true, true])
 const enableItem = () => {
 
     if (available.value <= props.component.required) {
+        console.log('3')
         if (available.value - installed.value > 0) {
+            console.log('4')
             status.value[available.value - 1] = false
         }
+
     }
     return status;
 }
 
 const disableItem = () => {
-
     if (available.value <= props.component.required) {
+        console.log('5')
         if (installed.value - available.value <= 0) {
             status.value[available.value] = true
         }
@@ -60,7 +63,15 @@ watch(
             status = enableItem()
         }
         else {
-            status = disableItem()
+            console.log('new' + newValue)
+            console.log('installed' + installed.value)
+            console.log('old' + oldValue)
+            if(newValue + installed.value !== oldValue){
+
+                status = disableItem()
+                console.log('1')
+
+            }
         }
     },
     { deep: true }

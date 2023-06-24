@@ -8,7 +8,7 @@ export const useRobotStore = defineStore("RobotStore", () => {
     const headerTextButton: string = 'Произвести биоробота';
     const homePageText: string = 'Фабрика по производству биороботов';
 
-    const coin = ref(1);
+    const coin = ref(100);
     const coinLimit: number = 100;
     const coinPerClick: number = 1;
     const coinBustStatus = ref(false);
@@ -81,7 +81,7 @@ export const useRobotStore = defineStore("RobotStore", () => {
         if (accessory.count > 0) {
             let installed: number;
             accessoryInDeveloping.value.components.find(c => c.type == name) != undefined ? installed = accessoryInDeveloping.value.components.find(c => c.type == name)?.installed! : installed = 0;
-            if(accessory.count > installed) {
+            if(accessory.count >= installed) {
 
                 if (coin_hash <= coinLimit) {
                     coin.value = coin_hash
@@ -103,7 +103,7 @@ export const useRobotStore = defineStore("RobotStore", () => {
         let component = accessoryInDeveloping.value.components.find(c => c.type == type)!
         if(component != undefined){
             component.installed++
-/*             setAccessoryInInventory(type, -1) */
+            setAccessoryInInventory(type, -1)
         }
     }
 
@@ -111,7 +111,7 @@ export const useRobotStore = defineStore("RobotStore", () => {
         let component = accessoryInDeveloping.value.components.find(c => c.type == type)!
         if(component != undefined){
             component.installed--
-/*             setAccessoryInInventory(type, 1) */
+            setAccessoryInInventory(type, 1)
         }
     }
 
