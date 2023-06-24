@@ -31,15 +31,15 @@ export const useRobotStore = defineStore("RobotStore", () => {
         stabilizer: stabilizers[0].name,
 
         components: [
-            { type: 'biohand', required: 4, available: computed(() => {return inventory.value[0].count}), installed: ref(0), completed: ref(false) },
-            { type: 'microchip', required: 4, available: computed(() => {return inventory.value[1].count}), installed: ref(0), completed: ref(false) },
-            { type: 'soul', required: 1, available: computed(() => {return inventory.value[2].count}), installed: ref(0), completed: ref(false) }
+            { type: 'biohand', required: 4, available: computed(() => { return inventory.value[0].count }), installed: ref(0), completed: ref(false) },
+            { type: 'microchip', required: 4, available: computed(() => { return inventory.value[1].count }), installed: ref(0), completed: ref(false) },
+            { type: 'soul', required: 1, available: computed(() => { return inventory.value[2].count }), installed: ref(0), completed: ref(false) }
         ],
     });
 
     const AccessoryCanCompleted = computed(() => {
         const components = accessoryInDeveloping.value.components
-        if(components.every(c => c.completed == true))
+        if (components.every(c => c.completed == true))
             return true
         else
             return false
@@ -56,12 +56,12 @@ export const useRobotStore = defineStore("RobotStore", () => {
         else
             coin.value = coin_hash
     };
-    const setAccessoryInInventory = (name: string, value: number):void => {
+    const setAccessoryInInventory = (name: string, value: number): void => {
         const inventoryItem: { name: string, cost: number, count: number } = inventory.value.find(i => i.name == name)!
         inventoryItem.count += value;
     };
 
-    const buyAccessory = (name: string):void => {
+    const buyAccessory = (name: string): void => {
         const accessory: { name: string, cost: number } = accessories.value.find(a => a.name == name)!
 
         if (coin.value >= accessory.cost) {
@@ -74,24 +74,20 @@ export const useRobotStore = defineStore("RobotStore", () => {
 
     };
 
-    const sellAccessory = (name: string) :void => {
+    const sellAccessory = (name: string): void => {
         const accessory: { name: string, cost: number, count: number } = inventory.value.find(i => i.name == name)!
 
         let coin_hash = coin.value + accessory.cost;
         if (accessory.count > 0) {
             let installed: number;
             accessoryInDeveloping.value.components.find(c => c.type == name) != undefined ? installed = accessoryInDeveloping.value.components.find(c => c.type == name)?.installed! : installed = 0;
-            if(accessory.count > installed) {
 
-                if (coin_hash <= coinLimit) {
-                    coin.value = coin_hash
-                    setAccessoryInInventory(name, -1)
-                }
-                else
-                    errorCoinLimit.value = true;
+            if (coin_hash <= coinLimit) {
+                coin.value = coin_hash
+                setAccessoryInInventory(name, -1)
             }
             else
-                console.log('Оборудование занято')
+                errorCoinLimit.value = true;
 
         }
         else
@@ -99,27 +95,27 @@ export const useRobotStore = defineStore("RobotStore", () => {
 
     };
 
-    const installComponent = (type: string) : void => {
+    const installComponent = (type: string): void => {
         let component = accessoryInDeveloping.value.components.find(c => c.type == type)!
-        if(component != undefined){
+        if (component != undefined) {
             component.installed++
-/*             setAccessoryInInventory(type, -1) */
+            setAccessoryInInventory(type, -1)
         }
     }
 
-    const putAwayComponent = (type: string) : void => {
+    const putAwayComponent = (type: string): void => {
         let component = accessoryInDeveloping.value.components.find(c => c.type == type)!
-        if(component != undefined){
+        if (component != undefined) {
             component.installed--
-/*             setAccessoryInInventory(type, 1) */
+            setAccessoryInInventory(type, 1)
         }
     }
 
-    const setCompleted = (type: string) : void => {
+    const setCompleted = (type: string): void => {
         let component = accessoryInDeveloping.value.components.find(c => c.type == type)!
-        if(component != undefined){
+        if (component != undefined) {
 
-            if(component.installed >= component.required)
+            if (component.installed >= component.required)
                 component.completed = true
             else
                 component.completed = false
@@ -131,19 +127,13 @@ export const useRobotStore = defineStore("RobotStore", () => {
     }
 
     const produceRobot = () => {
-        if(coin.value >= accessoryCost) {
-            accessoryInDeveloping.value.components.forEach(c => {
-                inventory.value.find(i => i.name == c.type)!.count -= c.required
-                c.installed -= c.required
-                c.completed = false
-            })
-    
+        if (coin.value >= accessoryCost) {
             accessoryCompleted.value = true
         }
         else
             errorNotEnoughCoins.value = true;
-        
-    } 
+
+    }
 
 
     return {
@@ -166,7 +156,7 @@ export const useRobotStore = defineStore("RobotStore", () => {
         types,
         accessoryCost,
 
-        
+
         earnСoins,
         buyAccessory,
         sellAccessory,
@@ -175,6 +165,6 @@ export const useRobotStore = defineStore("RobotStore", () => {
         putAwayComponent,
         setCompleted,
         produceRobot
-        
+
     }
 })
