@@ -1,0 +1,18 @@
+[
+    {
+        "type": "errorCoinLimit",
+        "notification": {
+            "title": "Количество монет ограничено",
+            "text": "Вы не можете нацыганить более 100 монет biorobo",
+            "icon": ".\\src\\assets\\Coin.svg"
+        }
+    },
+    {
+        "type": "accessoryCompleted",
+        "notification": {
+            "title": "Биоробот произведён",
+            "text": "Поздравляем! Вы произвели биоробота",
+            "icon": ".\\src\\assets\\Coin.svg"
+        }
+    }
+]

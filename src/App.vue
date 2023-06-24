@@ -6,6 +6,7 @@
     <market></market>
     <stock></stock>
     <manufacture></manufacture>
+    <notification-group></notification-group>
   </div>
 </template>
 
@@ -16,6 +17,7 @@ import Wallet from "./Template/Wallet.vue";
 import Market from "./Template/Market.vue";
 import Stock from "./Template/Stock.vue";
 import Manufacture from "./Template/Manufacture.vue";
+import NotificationGroup from "./Template/NotificationGroup.vue";
 
 </script>
 
