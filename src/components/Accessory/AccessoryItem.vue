@@ -1,5 +1,5 @@
 <template>
-    <div :class="props.accessory?.type == 'Market' ? 'market__item' : 'stock__item'">
+    <div class="item" :class="props.accessory?.type == 'Market' ? 'market__item' : 'stock__item'">
         <img v-if="props.accessory?.type == 'Market'" :src="link" alt="">
 
         <description-accessory class="description" :cost="props.accessory?.cost" :title="props.accessory?.title" />
@@ -80,13 +80,14 @@ watch(() => props.accessory.count, (count: number): void => {
 </script>
 
 <style scoped lang="scss">
-.market__item {
+
+.item {
     width: 33%;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
     align-items: center;
-
+    flex-direction: column;
+}
+.market__item {
     img {
         width: 50%;
         height: 80px;
@@ -101,17 +102,24 @@ watch(() => props.accessory.count, (count: number): void => {
     }
 }
 
-.stock__item {
-    width: 33%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
 .info-text {
     margin-top: 1vh;
 }
 
 .item-button {
     margin-top: 2vh;
+}
+@media screen and (max-width: 1024px) {
+    .item  {
+        min-width: 236px;
+        margin: 25px 24px;
+    }
+
+  }
+
+@media screen and (max-width: 1024px) {
+    .item  {
+        margin: 35px auto;
+    }
 }
 </style>

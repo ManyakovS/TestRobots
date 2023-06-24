@@ -44,6 +44,8 @@ const robotStore = useRobotStore();
 
     &__img {
         position: relative;
+        min-width: 236px;
+        min-height: 206px;
         height: 17vw;
         width: 19.1vw;
         background-repeat: no-repeat;
@@ -51,42 +53,39 @@ const robotStore = useRobotStore();
         background-image: url(../assets/HomeRobots.svg);
     }
 
+}
 
-    /*
-        &__img {
-            position: relative;
-            border-radius: 50%;
-            background-color: #1E2936;
-            width: 14.33vw;
-            height: 14.33vw;
-            background-repeat: no-repeat;
-            background-size: cover;
+@media screen and (min-width: 1024px) and (max-width: 1920px) {
+    .content__img{
+        width: 236px;
+        height: 206px;
+    }
+}
 
-            span {
-                position: absolute;
-                display: block;
-                background-repeat: no-repeat;
-                background-size: cover;
+@media screen and (max-width: 1024px) {
+    .home__description {
+        width: 45%;
+    }
+}
 
-            }
-            .front {
-                background-image: url(../assets/FrontMale.svg);
-                width: 176px;
-                height: 310px;
-                left: -55px;
-                background-position-y: top;
-            }
+@media screen and (max-width: 767px) {
+    .home{
+        height: auto;
+        margin-top: 6.7vh;
+    }
 
-            .designer {
-                background-image: url(../assets/DesignerMale.svg);
-                width: 138.5px;
-                height: 196px;
-                transform: rotateY(180deg);
-                bottom: 0;
-                left: 155px;
-                top: 40%
-            }
+    .home__description {
+        margin-top: 4vh;
+        width: 100%;
+        text-align: center;
+
+        h3 {
+            display: none;
         }
-        */
+    }
+
+    .home .content {
+        flex-direction: column-reverse;
+    }
 }
 </style>

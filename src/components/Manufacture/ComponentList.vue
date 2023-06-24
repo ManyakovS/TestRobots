@@ -8,7 +8,7 @@
 <script setup lang="ts">
 import { ref, watch, computed, PropType, onMounted } from 'vue'
 import { useRobotStore } from "../../stores/RobotStore"
-import VCheckBoxIcon from '../UI/VCheckBoxIcon.vue';
+import VCheckBoxIcon from './VCheckBoxIcon.vue';
 import Components from '../../Types/Components'
 
 const robotStore = useRobotStore();
@@ -19,18 +19,20 @@ const props = defineProps({
 
 const isLoading = ref(false)
 
-let complete = props.component.completed
-
 const installed = computed(() => { return props.component.installed })
 const available = computed(() => { return props.component.available })
 
 const status: any = ref([]);
 
+const setAllDisable = () => {
+    for (let index = 0; index < props.component.required; index++) {
+        status.value[index] = 'disabled';
+    }
+}
+
 const enableItem = ():void => {
     let index = status.value.findIndex(s => s == 'disabled')
     status.value[index] = 'available'
-
-
 }
 
 const disableItem = ():void => {
@@ -74,10 +76,16 @@ watch(
     { deep: true }
 )
 
+watch(
+    () => robotStore.accessoryCompleted,
+    () => {
+        setAllDisable();
+    },
+    {deep: true}
+)
+
 onMounted(() => {
-    for (let index = 0; index < props.component.required; index++) {
-        status.value.push('disabled');
-    }
+    setAllDisable();
     isLoading.value = true;
 })
 

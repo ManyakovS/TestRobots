@@ -49,4 +49,18 @@ const getCurrentItem = (name: string) => {
 .market__items {
     display: flex;
 }
+
+
+@media screen and (max-width: 1024px) {
+    .market__items {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .market {
+        margin-top: 6.7vh;
+    }
+  }
 </style>

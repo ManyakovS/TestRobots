@@ -22,11 +22,12 @@ const getIndex = (index: number) : number => {
 <style scoped lang="scss">
 .coins-list {
     display: flex;
+    flex-wrap: wrap;
     position: relative;
 
     &__coin {
         display: block;
-        margin-right: -8px;
+        margin: 4px -8px 4px 0; 
         background-image: url(../../assets/coin.svg);
         width: 16px;
         height: 20px;

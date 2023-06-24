@@ -34,9 +34,20 @@ const scrollTo = () => {
         }
     }
 
+    @media screen and (max-width: 1024px) {
+        header {
+            width: 85.75%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+      }
+
     @media screen and (max-width: 768px) {
         .logo {
             display: none;
+        }
+        header {
+            justify-content: center;
         }
       }
 </style>

@@ -15,9 +15,6 @@ export const useRobotStore = defineStore("RobotStore", () => {
     const coinBusted: number = 5;
 
     const errorCoinLimit = ref(false);
-    const errorNotEnoughCoins = ref(false);
-    const errorNotEnoughAccessory = ref(false);
-
     const accessories = ref(accessoryJSON);
     const inventory = ref(inventoryJSON);
 
@@ -45,8 +42,6 @@ export const useRobotStore = defineStore("RobotStore", () => {
             return false
     })
 
-
-
     const earnСoins = () => {
         let coin_hash: number;
         coinBustStatus.value == true ? coin_hash = coin.value + coinBusted : coin_hash = coin.value + coinPerClick
@@ -68,10 +63,6 @@ export const useRobotStore = defineStore("RobotStore", () => {
             coin.value -= accessory.cost
             setAccessoryInInventory(name, 1)
         }
-        else {
-            errorNotEnoughCoins.value = true;
-        }
-
     };
 
     const sellAccessory = (name: string): void => {
@@ -88,11 +79,7 @@ export const useRobotStore = defineStore("RobotStore", () => {
             }
             else
                 errorCoinLimit.value = true;
-
         }
-        else
-            errorNotEnoughAccessory.value = true;
-
     };
 
     const installComponent = (type: string): void => {
@@ -128,11 +115,10 @@ export const useRobotStore = defineStore("RobotStore", () => {
 
     const produceRobot = () => {
         if (coin.value >= accessoryCost) {
+            accessoryInDeveloping.value.components.forEach(c => c.installed = 0)
+            
             accessoryCompleted.value = true
         }
-        else
-            errorNotEnoughCoins.value = true;
-
     }
 
 
@@ -145,8 +131,6 @@ export const useRobotStore = defineStore("RobotStore", () => {
         coinBustStatus,
         coinBusted,
         errorCoinLimit,
-        errorNotEnoughAccessory,
-        errorNotEnoughCoins,
         accessories,
         inventory,
         accessoryInDeveloping,

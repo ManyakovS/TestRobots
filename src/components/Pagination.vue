@@ -64,4 +64,11 @@ const props = defineProps({
     height: 70%;
     margin: auto 0 40px 0;
 }
+
+@media screen and (max-width: 1024px) {
+    .pagination{
+        display: none;
+    }
+  }
+  
 </style>

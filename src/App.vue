@@ -49,4 +49,12 @@ import NotificationGroup from "./Template/NotificationGroup.vue";
 .content {
   width: 85.75%;
 }
+
+@media screen and (max-width: 1024px) {
+  .content {
+    margin: 0 auto;
+  }
+  
+}
+
 </style>

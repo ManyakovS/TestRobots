@@ -51,4 +51,17 @@ const getCurrentItem = (name: string) => {
     }
 }
 
+@media screen and (max-width: 1024px) {
+    .stock__items {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .stock {
+        margin-top: 6.7vh;
+    }
+  }
+
 </style>

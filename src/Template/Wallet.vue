@@ -43,11 +43,19 @@ const robotStore = useRobotStore();
 
     .earn_coins {
         margin-top: 4vh;
-        width: 25vw;
         max-width: 350px;
-        display: grid;
-        grid-template-columns: 1fr 2.5fr;
-        gap: 20px
+        display: flex;
+        justify-content: space-between;
     }
+
+    @media screen and (max-width: 768px) {
+        .wallet {
+            margin-top: 6.7vh;
+        }
+        .earn_coins {
+            flex-direction: column;
+            min-height: 72px;
+        }
+      }
  
 </style>

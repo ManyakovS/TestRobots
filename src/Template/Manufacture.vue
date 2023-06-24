@@ -27,7 +27,8 @@
 
                 <div class="complete-button">
                     <v-button :type="'stroke'" :color="'orange'" :disabled="!robotStore.AccessoryCanCompleted"
-                        @click="robotStore.produceRobot()">Произвести за {{getNoun(robotStore.accessoryCost, "монета", "монеты", "монет")}}</v-button>
+                        @click="robotStore.produceRobot()">Произвести за {{ getNoun(robotStore.accessoryCost, "монета",
+                            "монеты", "монет") }}</v-button>
                 </div>
 
                 <div class="text-help" v-if="!(getMissingComponent == '')">
@@ -88,8 +89,8 @@ const getMissingComponent = computed(() => {
     let length = components.length
     for (let index = 0; index < length; index++) {
         const type = components[index].type
-        
-        returnedStr = returnedStr + `${getPunctuation(index, length)} ${getNounForName(getCount(type), type)}` 
+
+        returnedStr = returnedStr + `${getPunctuation(index, length)} ${getNounForName(getCount(type), type)}`
     }
     return returnedStr
 })
@@ -108,14 +109,43 @@ const getMissingComponent = computed(() => {
 
 .manufacture__group {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, 1fr);
-    gap: 30px;
 
     >div {
         width: 100%;
     }
 
+    .robot {
+        position: relative;
+        max-height: 320px;
+        width: 236px;
+
+        img {
+            position: absolute;
+            width: 100%;
+            object-fit: contain;
+        }
+    }
+
+    .complete-button {
+        display: flex;
+
+    }
+
+    .text-help {
+        height: fit-content;
+        display: flex;
+    }
+}
+
+@media screen and (min-width: 1025px) {
+    .manufacture {
+        height: 70vh;
+    }
+    .manufacture__group {
+        gap: 30px;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+    }
     .radio-groups {
         grid-row: span 2 / span 2;
     }
@@ -126,28 +156,95 @@ const getMissingComponent = computed(() => {
 
     .robot {
         grid-row: span 3 / span 3;
-        position: relative;
-
         img {
-            position: absolute;
             bottom: -30px;
-            width: 100%;
-            object-fit: contain;
         }
     }
 
     .complete-button {
         grid-row: 3/4;
-        display: flex;
         align-items: flex-end;
-
     }
 
     .text-help {
         grid-column: 2/3;
         grid-row: 3/4;
-        display: flex;
         align-items: flex-end;
     }
 }
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+    .manufacture {
+        height: 80vh;
+    }
+    .manufacture__group {
+        gap: 3px 60px;
+        grid-template-columns: 2fr 3fr;
+        grid-template-rows: 3fr 3fr 1fr 1fr;
+    }
+
+    .radio-groups {
+        grid-row: 1 / 2
+    }
+
+    .group__components {
+        grid-row: 2
+    }
+
+    .robot {
+        grid-row: span 3 / span 3;
+        left: calc(50% - 118px);
+    }
+
+    .complete-button {
+        grid-column: 1;
+        grid-row: 4;
+        align-items: flex-end;
+    }
+
+    .text-help {
+        grid-column: 1;
+        grid-row: 3;
+    }
+}
+@media screen and (max-width: 767px) {
+    .manufacture {
+        margin-top: 6.7vh;
+        height: 100vh;
+        margin-bottom: 10vh;
+    }
+    .manufacture__group {
+        gap: 3px 60px;
+        grid-template-rows: 4.5fr 3fr 3fr 1fr 1fr;
+    }
+
+    .radio-groups {
+        grid-row: 2;
+    }
+
+    .group__components {
+        grid-row: 3;
+    }
+
+    .robot {
+        grid-row: 1;
+        left: calc(50% - 118px);
+        img {
+            bottom: -10px;
+        }
+    }
+
+    .complete-button {
+        grid-column: 1;
+        grid-row: 5;
+        align-items: flex-end;
+        justify-content: center;
+    }
+
+    .text-help {
+        grid-column: 1;
+        grid-row: 4;
+    }
+}
+
 </style>
