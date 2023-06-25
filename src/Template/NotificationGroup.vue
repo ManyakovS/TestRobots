@@ -1,6 +1,7 @@
 <template>
     <div>
         <notification v-if="robotStore.errorCoinLimit" v-model="robotStore.errorCoinLimit" :notification="notification" />
+        
         <notification v-if="robotStore.accessoryCompleted && isAccessoryComplete" :type="'NonClosing'" :notification="notification"
             @close="closeAccessoryComplete" />
     </div>
