@@ -1,7 +1,7 @@
 <template>
     <div class="stock">
 
-        <pagination :page="'03'"></pagination>
+        <pagination :page="'04'"></pagination>
 
         <div class="content">
             <v-title>Склад</v-title>

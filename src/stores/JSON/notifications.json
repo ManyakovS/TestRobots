@@ -12,7 +12,7 @@
         "notification": {
             "title": "Биоробот произведён",
             "text": "Поздравляем! Вы произвели биоробота",
-            "icon": ".\\src\\assets\\Coin.svg"
+            "icon": ""
         }
     }
 ]

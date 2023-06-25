@@ -1,7 +1,7 @@
 <template>
     <div class="manufacture">
 
-        <pagination :page="'04'"></pagination>
+        <pagination :page="'05'"></pagination>
 
         <div class="content">
             <v-title>Производство</v-title>
@@ -79,7 +79,9 @@ const link = computed(() => {
 
 const getCount = (type: string): number => {
     let component = robotStore.accessoryInDeveloping.components.find(c => c.type == type);
-    let returnedCount = component?.required! - component?.available!
+    let returnedCount = component?.available! + component?.installed! - component?.required!
+    returnedCount < 0 ? returnedCount =  0 - returnedCount : returnedCount
+    
     return returnedCount != undefined ? returnedCount : 0
 };
 
