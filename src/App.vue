@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <v-header></v-header>
+    <header></header>
     <home></home>
     <wallet></wallet>
     <market></market>
@@ -12,7 +12,7 @@
 
 <script setup lang="ts">
 import Home from "./Template/Home.vue";
-import VHeader from "./Template/Header.vue";
+import Header from "./Template/Header.vue";
 import Wallet from "./Template/Wallet.vue";
 import Market from "./Template/Market.vue";
 import Stock from "./Template/Stock.vue";

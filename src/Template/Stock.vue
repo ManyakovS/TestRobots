@@ -4,7 +4,7 @@
         <pagination :page="'04'"></pagination>
 
         <div class="content">
-            <v-title>Склад</v-title>
+            <title>Склад</title>
 
             <div class="stock__items">
 
@@ -17,18 +17,18 @@
 </template>
 
 <script setup lang="ts">
-import { useRobotStore } from "../stores/RobotStore"
+import { useRobotStore } from "../stores/robotStore"
 
-import VTitle from '../components/UI/VTitle.vue';
+import Title from '../components/UI/Title.vue';
 import Pagination from '../components/Pagination.vue';
 import AccessoryItem from '../components/Accessory/AccessoryItem.vue'
-import Accessory from '../Types/Accessory'
+import {accessoryType} from '../stores/types/types'
 
 const robotStore = useRobotStore();
 
 const getCurrentItem = (name: string) => {
     let inv = robotStore.inventory.find(i => i.name == name)
-    let accessory: Accessory = {
+    let accessory: accessoryType = {
         name: inv?.name,
         title: inv?.title,
         cost: inv?.cost,
@@ -64,4 +64,4 @@ const getCurrentItem = (name: string) => {
     }
   }
 
-</style>
+</style>../stores/robotStore../stores/types/types

@@ -4,16 +4,16 @@
         <pagination :page="'05'"></pagination>
 
         <div class="content">
-            <v-title>Производство</v-title>
+            <title>Производство</title>
 
             <div class="manufacture__group">
 
                 <div class="radio-groups">
-                    <v-radio-group :list="robotStore.types" v-model="robotStore.accessoryInDeveloping.type">Тип
-                        биоробота</v-radio-group>
+                    <radio-group :list="robotStore.types" v-model="robotStore.accessoryInDeveloping.type">Тип
+                        биоробота</radio-group>
 
-                    <v-radio-group :list="robotStore.stabilizers"
-                        v-model="robotStore.accessoryInDeveloping.stabilizer">Стабилизатор</v-radio-group>
+                    <radio-group :list="robotStore.stabilizers"
+                        v-model="robotStore.accessoryInDeveloping.stabilizer">Стабилизатор</radio-group>
                 </div>
 
                 <div class="group__components">
@@ -26,9 +26,9 @@
                 </div>
 
                 <div class="complete-button">
-                    <v-button :type="'stroke'" :color="'orange'" :disabled="!robotStore.AccessoryCanCompleted"
+                    <w-button :type="'stroke'" :color="'orange'" :disabled="!robotStore.AccessoryCanCompleted"
                         @click="robotStore.produceRobot()">Произвести за {{ getNoun(robotStore.accessoryCost, "монета",
-                            "монеты", "монет") }}</v-button>
+                            "монеты", "монет") }}</w-button>
                 </div>
 
                 <div class="text-help" v-if="!(getMissingComponent == '')">
@@ -44,12 +44,12 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
-import VTitle from '../components/UI/VTitle.vue'
+import { computed } from 'vue'
+import Title from '../components/UI/Title.vue'
 import Pagination from '../components/Pagination.vue'
-import VRadioGroup from '../components/VRadioGroup.vue'
-import VCheckBoxIcon from '../components/UI/VCheckBoxIcon.vue'
-import VButton from '../components/UI/VButton.vue'
+import RadioGroup from '../components/RadioGroup.vue'
+import CheckBoxIcon from '../components/UI/CheckBoxIcon.vue'
+import WButton from '../components/UI/Button.vue'
 import { useRobotStore } from '../stores/RobotStore'
 import { getNounForName, getPunctuation, getNoun } from '../DeclensionOfNouns/declension'
 
@@ -65,15 +65,15 @@ const link = computed(() => {
     let type = robotStore.accessoryInDeveloping.type
 
     if (!robotStore.AccessoryCanCompleted)
-        status = 'CanNotProduced'
+        status = 'canNotProduced'
 
     if (robotStore.AccessoryCanCompleted)
-        status = 'CanProduced'
+        status = 'canProduced'
 
     if (robotStore.accessoryCompleted)
-        status = 'Completed'
+        status = 'completed'
 
-    return `src/assets/Robots/${status}/${type}${stabilizer}.png`
+    return `src/assets/robots/${status}/${type}${stabilizer}.png`
 
 })
 
@@ -89,10 +89,15 @@ const getMissingComponent = computed(() => {
     let returnedStr = ''
     const components = robotStore.accessoryInDeveloping.components.filter(c => c.available + c.installed < c.required)
     let length = components.length
+
     for (let index = 0; index < length; index++) {
         const type = components[index].type
 
         returnedStr = returnedStr + `${getPunctuation(index, length)} ${getNounForName(getCount(type), type)}`
+    }
+    if(robotStore.coin < robotStore.accessoryCost) {
+        returnedStr = returnedStr.replace(/ и /gm, ', ')
+        returnedStr = returnedStr + ` денег`
     }
     return returnedStr
 })
@@ -249,4 +254,4 @@ const getMissingComponent = computed(() => {
     }
 }
 
-</style>
+</style>../stores/robotStore

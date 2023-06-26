@@ -1,6 +1,6 @@
 <template>
     <div class="list" v-if="isLoading">
-        <v-check-box-icon v-for="i in props.component.required" :key="i" :id="`${props.component.type}-checkbox-${i}`"
+        <check-box-icon v-for="i in props.component.required" :key="i" :id="`${props.component.type}-checkbox-${i}`"
             :type="props.component.type" :isDisabled="status[i - 1]" @toggle="toggleComponent" />
     </div>
 </template>
@@ -8,7 +8,7 @@
 <script setup lang="ts">
 import { ref, watch, computed, PropType, onMounted } from 'vue'
 import { useRobotStore } from "../../stores/RobotStore"
-import VCheckBoxIcon from './VCheckBoxIcon.vue';
+import CheckBoxIcon from './CheckBoxIcon.vue';
 import Components from '../../Types/Components'
 
 const robotStore = useRobotStore();
@@ -97,4 +97,4 @@ onMounted(() => {
     justify-content: space-between;
     margin-bottom: 1.2vh;
 }
-</style>
+</style>../../stores/robotStore../../stores/types/Components

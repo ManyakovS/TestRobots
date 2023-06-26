@@ -5,7 +5,7 @@
         </p>
 
         <div class="radio-group">
-            <v-radio-button v-for="user in props.list" :value="user.name" :key="user.name">{{ user.name }}</v-radio-button>
+            <radio-button v-for="user in props.list" :value="user.name" :key="user.name">{{ user.name }}</radio-button>
         </div>
 
     </div>
@@ -13,7 +13,7 @@
 
 <script setup lang="ts">
 import { provide, computed} from 'vue'
-import VRadioButton from './UI/VRadioButton.vue';
+import RadioButton from './UI/RadioButton.vue';
 
 const props = defineProps({
     'modelValue':{

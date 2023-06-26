@@ -3,18 +3,18 @@
         <pagination :page="'02'"></pagination>
 
         <div class="content">
-            <v-title>Кошелёк криптовалют</v-title>
+            <title>Кошелёк криптовалют</title>
 
             <coin-list :count="robotStore.coin"></coin-list>
 
-            <v-balance :coins="robotStore.coin"></v-balance>
+            <balance :coins="robotStore.coin"></balance>
 
             <div class="earn_coins">
-                <v-link @click="robotStore.earnСoins()">Нацыганить</v-link>
+                <w-link @click="robotStore.earnСoins()">Нацыганить</w-link>
 
-                <v-check-box v-model="robotStore.coinBustStatus" :id="'coin-bust'">
+                <check-box v-model="robotStore.coinBustStatus" :id="'coin-bust'">
                     Цыганить по {{ getNoun(robotStore.coinBusted, "монете", "монеты", "монет") }}
-                </v-check-box>
+                </check-box>
             </div>
         </div>
     </div>
@@ -24,12 +24,11 @@
 import { useRobotStore } from "../stores/RobotStore"
 import { getNoun }  from '../DeclensionOfNouns/declension'
 
-import VTitle from '../components/UI/VTitle.vue'
-import VButton from '../components/UI/VButton.vue'
+import Title from '../components/UI/Title.vue'
 import CoinList from '../components/Wallet/CoinList.vue'
-import VBalance from '../components/UI/VBalance.vue'
-import VLink from '../components/UI/VLink.vue'
-import VCheckBox from '../components/UI/VCheckBox.vue'
+import Balance from '../components/UI/Balance.vue'
+import WLink from '../components/UI/Link.vue'
+import CheckBox from '../components/UI/CheckBox.vue'
 import Pagination from '../components/Pagination.vue';
 
 const robotStore = useRobotStore();
@@ -58,4 +57,4 @@ const robotStore = useRobotStore();
         }
       }
  
-</style>
+</style>../stores/robotStore

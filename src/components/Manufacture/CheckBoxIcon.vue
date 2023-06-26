@@ -15,9 +15,9 @@
 
 <script setup lang="ts">
 import { watch, ref, computed } from 'vue'
-import Microchip from '../SVG/Microchip.vue'
-import Soul from '../SVG/Soul.vue'
-import Biohand from '../SVG/Biohand.vue'
+import Microchip from '../svg/Microchip.vue'
+import Soul from '../svg/Soul.vue'
+import Biohand from '../svg/Biohand.vue'
 
 const props = defineProps({
     id: {

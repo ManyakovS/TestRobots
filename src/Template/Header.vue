@@ -2,12 +2,12 @@
     <header>
         <span class="logo"></span>
 
-        <v-button :color="'orange'" :type="'stroke'" @click="scrollTo">{{ robotStore.headerTextButton }}</v-button>
+        <w-button :color="'orange'" :type="'stroke'" @click="scrollTo">{{ robotStore.headerTextButton }}</w-button>
     </header>
 </template>
 
 <script setup lang="ts">
-import VButton from '../components/UI/VButton.vue'
+import WButton from '../components/UI/Button.vue'
 import {useRobotStore} from "../stores/RobotStore"
 
 const robotStore = useRobotStore();
@@ -50,4 +50,4 @@ const scrollTo = () => {
             justify-content: center;
         }
       }
-</style>
+</style>../stores/robotStore

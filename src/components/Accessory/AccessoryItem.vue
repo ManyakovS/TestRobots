@@ -6,26 +6,29 @@
 
         <p v-if="props.accessory?.type == 'Stock'" class="info-text">{{ props.accessory?.count }} шт</p>
 
-        <v-button class="item-button" 
+        <w-button class="item-button" 
         :color="optionsButton?.color" 
         :type="optionsButton?.type" 
         :disabled="isDisabled"
         @click="clickButton"
         >
             {{ optionsButton?.text }}
-        </v-button>
+        </w-button>
     </div>
 </template>
 
 <script setup lang="ts">
 import { computed, PropType, ref, watch } from "vue";
-import { useRobotStore } from "../../stores/RobotStore"
-import DescriptionAccessory from './DescriptionAccessory.vue';
-import Accessory from '../../Types/Accessory'
-import VButton from '../UI/VButton.vue'
+import { useRobotStore } from "../../stores/robotStore"
+import DescriptionAccessory from "./DescriptionAccessory.vue";
+import {accessoryType} from '../stores/types/types'
+import WButton from '../UI/Button.vue'
 
 const props = defineProps({
-    accessory: Object as PropType<Accessory>
+    accessory: {
+        type: Object as PropType<accessoryType>,
+        required: true
+    }
 })
 const robotStore = useRobotStore();
 
@@ -122,4 +125,4 @@ watch(() => props.accessory.count, (count: number): void => {
         margin: 35px auto;
     }
 }
-</style>
+</style>../../stores/robotStore../../stores/types/types

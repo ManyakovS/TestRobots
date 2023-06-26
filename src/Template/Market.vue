@@ -4,7 +4,7 @@
         <pagination :page="'03'"></pagination>
 
         <div class="content">
-            <v-title>Рынок комплектующих</v-title>
+            <title>Рынок комплектующих</title>
 
             <div class="market__items">
                 <accessory-item v-for="item in robotStore.accessories" :key="item.name" :accessory="getCurrentItem(item.name)"/>
@@ -15,19 +15,19 @@
 </template>
 
 <script setup lang="ts">
-import { useRobotStore } from "../stores/RobotStore"
+import { useRobotStore } from "../stores/robotStore"
 
-import VTitle from '../components/UI/VTitle.vue';
+import Title from '../components/UI/Title.vue';
 import Pagination from '../components/Pagination.vue';
 import AccessoryItem from '../components/Accessory/AccessoryItem.vue'
-import Accessory from '../Types/Accessory'
+import {accessoryType} from '../stores/types/types'
 
 
 const robotStore = useRobotStore();
 
 const getCurrentItem = (name: string) => {
     let acc = robotStore.accessories.find(a => a.name == name)
-    let accessory: Accessory = {
+    let accessory: accessoryType = {
         name: acc?.name,
         title: acc?.title,
         cost: acc?.cost,
@@ -63,4 +63,4 @@ const getCurrentItem = (name: string) => {
         margin-top: 6.7vh;
     }
   }
-</style>
+</style>../stores/robotStore../stores/types/types

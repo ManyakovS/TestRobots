@@ -80,4 +80,4 @@ const robotStore = useRobotStore();
         flex-direction: column-reverse;
     }
 }
-</style>
+</style>../stores/robotStore
