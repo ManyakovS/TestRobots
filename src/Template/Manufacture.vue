@@ -26,7 +26,7 @@
                 </div>
 
                 <div class="complete-button">
-                    <w-button :type="'stroke'" :color="'orange'" :disabled="!robotStore.AccessoryCanCompleted"
+                    <w-button :type="'stroke'" :color="'orange'" :disabled="!robotStore.accessoryCanCompleted"
                         @click="robotStore.produceRobot()">Произвести за {{ getNoun(robotStore.accessoryCost, "монета",
                             "монеты", "монет") }}</w-button>
                 </div>
@@ -61,10 +61,10 @@ const link = computed(() => {
     let stabilizer = robotStore.accessoryInDeveloping.stabilizer
     let type = robotStore.accessoryInDeveloping.type
 
-    if (!robotStore.AccessoryCanCompleted)
+    if (!robotStore.accessoryCanCompleted)
         status = 'canNotProduced'
 
-    if (robotStore.AccessoryCanCompleted)
+    if (robotStore.accessoryCanCompleted)
         status = 'canProduced'
 
     if (robotStore.accessoryCompleted)

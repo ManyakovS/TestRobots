@@ -78,7 +78,7 @@ export const useRobotStore = defineStore("RobotStore", () => {
         ],
     });
 
-    const AccessoryCanCompleted = computed(() => {
+    const accessoryCanCompleted = computed(() => {
         const components = accessoryInDeveloping.value.components
         if (components.every(c => c.completed == true))
             return true
@@ -175,7 +175,7 @@ export const useRobotStore = defineStore("RobotStore", () => {
         coinBusted,
         errorCoinLimit,
         accessoryInDeveloping,
-        AccessoryCanCompleted,
+        accessoryCanCompleted,
         accessoryCompleted,
         stabilizers,
         types,
