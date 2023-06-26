@@ -1,7 +1,8 @@
+
 <template>
     <div class="pagination" :class="{'pagination-with-arrow': props.showArrow }">
-        <p class="pagination__page">{{ props.page }}</p>
-
+        <p class="pagination__page">{{ page }}</p>
+        
         <div v-if="showArrow" class="pagination__scroll">
             <span class="pagination__scroll_text">скоролл</span>
             <span class="pagination__scroll_arrow"></span>
@@ -10,15 +11,22 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from "vue"
 const props = defineProps({
     page: {
-            type: String,
+            type: Number,
             required: true,
         },
         showArrow: {
             type: Boolean,
             default: false,
         }
+})
+
+const page = computed(() => {
+    let page;
+    props.page > 10 ? page = props.page : page = `0${props.page}`
+    return page
 })
 </script>
 

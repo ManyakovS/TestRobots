@@ -1,10 +1,10 @@
 <template>
-    <div class="item" :class="props.accessory?.type == 'Market' ? 'market__item' : 'stock__item'">
-        <img v-if="props.accessory?.type == 'Market'" :src="link" alt="">
+    <div class="item" :class="props.type == 'Market' ? 'market__item' : 'stock__item'">
+        <img v-if="props.type == 'Market'" :src="link" alt="">
 
         <description-accessory class="description" :cost="props.accessory?.cost" :title="props.accessory?.title" />
 
-        <p v-if="props.accessory?.type == 'Stock'" class="info-text">{{ props.accessory?.count }} шт</p>
+        <p v-if="props.type == 'Stock'" class="info-text">{{ props.accessory?.count }} шт</p>
 
         <w-button class="item-button" 
         :color="optionsButton?.color" 
@@ -21,21 +21,25 @@
 import { computed, PropType, ref, watch } from "vue";
 import { useRobotStore } from "../../stores/robotStore"
 import DescriptionAccessory from "./DescriptionAccessory.vue";
-import {accessoryType} from '../stores/types/types'
 import WButton from '../UI/Button.vue'
+import { defaultAccessory } from "../../stores/types/types";
 
 const props = defineProps({
     accessory: {
-        type: Object as PropType<accessoryType>,
+        type: Object as PropType<defaultAccessory>,
+        required: true
+    },
+    type: {
+        type: String,
         required: true
     }
 })
 const robotStore = useRobotStore();
 
 const optionsButton = computed(() => {
-    if (props.accessory?.type === 'Market')
+    if (props.type === 'Market')
         return { color: 'orange', type: 'fill', text: 'Установить' }
-    else if (props.accessory?.type === 'Stock')
+    else if (props.type === 'Stock')
         return { color: 'blue', type: 'stroke', text: 'Продать' }
 })
 
@@ -44,9 +48,9 @@ const link = computed(() => {
 })
 
 const clickButton = () => {
-    if(props.accessory.type === 'Market')
+    if(props.type === 'Market')
         robotStore.buyAccessory(props.accessory.name)
-    else if (props.accessory.type === 'Stock')
+    else if (props.type === 'Stock')
         robotStore.sellAccessory(props.accessory.name)
 }
 
@@ -62,20 +66,20 @@ const disabledStock = (count: number): boolean => {
     else
         return false;
 }
-const disabled = (coin: number = robotStore.coin, count: number = robotStore.inventory.find(i => i.name == props.accessory.name)?.count!) => {
-    if (props.accessory.type === 'Market')
+const disabled = (coin: number = robotStore.coin, count: number) => {
+    if (props.type === 'Market')
         return disabledMarket(coin, props.accessory.cost);
-    else if (props.accessory.type === 'Stock')
+    else if (props.type === 'Stock')
         return disabledStock(count);
 }
-let isDisabled = ref(disabled());
+let isDisabled = ref(disabled(robotStore.coin,props.accessory.count));
 
 watch(() => robotStore.coin, (coin: number): void => {
-    isDisabled.value = disabled(coin)!
+    isDisabled.value = disabled(coin, props.accessory.count)!
 })
 
 watch(() => props.accessory.count, (count: number): void => {
-    isDisabled.value = disabled(count)!
+    isDisabled.value = disabled(robotStore.coin, count)!
 })
 
 
@@ -125,4 +129,4 @@ watch(() => props.accessory.count, (count: number): void => {
         margin: 35px auto;
     }
 }
-</style>../../stores/robotStore../../stores/types/types
+</style>

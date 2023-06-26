@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
-import { ref, computed } from 'vue'
-import accessoryJSON from '../stores/JSON/accessory.json'
-import inventoryJSON from '../stores/JSON/inventory.json'
+import { ref, computed, Ref } from 'vue'
+
+import { defaultAccessory } from './types/types';
 
 export const useRobotStore = defineStore("RobotStore", () => {
 
@@ -15,22 +15,66 @@ export const useRobotStore = defineStore("RobotStore", () => {
     const coinBusted: number = 5;
 
     const errorCoinLimit = ref(false);
-    const accessories = ref(accessoryJSON);
-    const inventory = ref(inventoryJSON);
+
+    interface accessories {
+        [key: string]: defaultAccessory;
+    }
+
+    const notifications = [
+        {
+            "type": "errorCoinLimit",
+            "notification": {
+                "title": "Количество монет ограничено",
+                "text": "Вы не можете нацыганить более 100 монет biorobo",
+                "icon": ".\\src\\assets\\Coin.svg"
+            }
+        },
+        {
+            "type": "accessoryCompleted",
+            "notification": {
+                "title": "Биоробот произведён",
+                "text": "Поздравляем! Вы произвели биоробота",
+                "icon": ""
+            }
+        }
+    ];
+
+    const accessories: Ref<accessories> = ref({
+        'biohand': {
+            name: "biohand",
+            title: "Биорука",
+            cost: 5,
+            sellCost: 3,
+            count: 0,
+        },
+        'microchip': {
+            name: "microchip",
+            title: "Микрочип",
+            cost: 5,
+            sellCost: 3,
+            count: 0,
+        },
+        'soul': {
+            name: "soul",
+            title: "Душа",
+            cost: 25,
+            sellCost: 15,
+            count: 0,
+        }
+    });
 
     const types = [{ name: 'FrontEnd' }, { name: 'Designer' }];
-    const stabilizers = [{ name: 'Male' }, { name: 'Famale' }];
+    const stabilizers = [{ name: 'Male' }, { name: 'Female' }];
     const accessoryCompleted = ref(false);
     const accessoryCost = 10;
 
     const accessoryInDeveloping = ref({
         type: types[0].name,
         stabilizer: stabilizers[0].name,
-
         components: [
-            { type: 'biohand', required: 4, available: computed(() => { return inventory.value[0].count }), installed: ref(0), completed: ref(false) },
-            { type: 'microchip', required: 4, available: computed(() => { return inventory.value[1].count }), installed: ref(0), completed: ref(false) },
-            { type: 'soul', required: 1, available: computed(() => { return inventory.value[2].count }), installed: ref(0), completed: ref(false) }
+            { type: 'biohand', required: 4, available: computed(() => { return accessories.value["biohand"].count }), installed: ref(0), completed: ref(false) },
+            { type: 'microchip', required: 4, available: computed(() => { return accessories.value["microchip"].count }), installed: ref(0), completed: ref(false) },
+            { type: 'soul', required: 1, available: computed(() => { return accessories.value["soul"].count }), installed: ref(0), completed: ref(false) }
         ],
     });
 
@@ -52,26 +96,25 @@ export const useRobotStore = defineStore("RobotStore", () => {
             coin.value = coin_hash
     };
     const setAccessoryInInventory = (name: string, value: number): void => {
-        const inventoryItem: { name: string, cost: number, count: number } = inventory.value.find(i => i.name == name)!
-        inventoryItem.count += value;
+        accessories.value[name].count += value
     };
 
     const buyAccessory = (name: string): void => {
-        const accessory: { name: string, cost: number } = accessories.value.find(a => a.name == name)!
+        const cost: number = accessories.value[name].cost
 
-        if (coin.value >= accessory.cost) {
-            coin.value -= accessory.cost
+        if (coin.value >= cost) {
+            coin.value -= cost
             setAccessoryInInventory(name, 1)
         }
     };
 
     const sellAccessory = (name: string): void => {
-        const accessory: { name: string, cost: number, count: number } = inventory.value.find(i => i.name == name)!
+        const accessory:defaultAccessory  = accessories.value[name]
 
         let coin_hash = coin.value + accessory.cost;
         if (accessory.count > 0) {
             let installed: number;
-            accessoryInDeveloping.value.components.find(c => c.type == name) != undefined ? installed = accessoryInDeveloping.value.components.find(c => c.type == name)?.installed! : installed = 0;
+            installed = accessoryInDeveloping.value.components.find(c => c.type == name)?.installed!
 
             if (coin_hash <= coinLimit) {
                 coin.value = coin_hash
@@ -116,7 +159,7 @@ export const useRobotStore = defineStore("RobotStore", () => {
     const produceRobot = () => {
         if (coin.value >= accessoryCost) {
             accessoryInDeveloping.value.components.forEach(c => c.installed = 0)
-            
+
             accessoryCompleted.value = true
         }
     }
@@ -131,14 +174,14 @@ export const useRobotStore = defineStore("RobotStore", () => {
         coinBustStatus,
         coinBusted,
         errorCoinLimit,
-        accessories,
-        inventory,
         accessoryInDeveloping,
         AccessoryCanCompleted,
         accessoryCompleted,
         stabilizers,
         types,
         accessoryCost,
+        accessories,
+        notifications,
 
 
         earnСoins,

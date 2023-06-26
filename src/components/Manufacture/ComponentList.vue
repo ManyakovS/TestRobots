@@ -97,4 +97,4 @@ onMounted(() => {
     justify-content: space-between;
     margin-bottom: 1.2vh;
 }
-</style>../../stores/robotStore../../stores/types/Components
+</style>

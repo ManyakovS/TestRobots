@@ -1,7 +1,7 @@
 <template>
     <div class="manufacture">
 
-        <pagination :page="'05'"></pagination>
+        <pagination :page="5"></pagination>
 
         <div class="content">
             <title>Производство</title>
@@ -48,16 +48,13 @@ import { computed } from 'vue'
 import Title from '../components/UI/Title.vue'
 import Pagination from '../components/Pagination.vue'
 import RadioGroup from '../components/RadioGroup.vue'
-import CheckBoxIcon from '../components/UI/CheckBoxIcon.vue'
 import WButton from '../components/UI/Button.vue'
 import { useRobotStore } from '../stores/RobotStore'
-import { getNounForName, getPunctuation, getNoun } from '../DeclensionOfNouns/declension'
+import { getNounForName, getPunctuation, getNoun } from '../functions/grammaticalFunctions'
 
 import ComponentsList from '../components/Manufacture/ComponentList.vue'
 
 const robotStore = useRobotStore();
-
-const components = robotStore.accessoryInDeveloping.components
 
 const link = computed(() => {
     let status;
@@ -96,8 +93,10 @@ const getMissingComponent = computed(() => {
         returnedStr = returnedStr + `${getPunctuation(index, length)} ${getNounForName(getCount(type), type)}`
     }
     if(robotStore.coin < robotStore.accessoryCost) {
-        returnedStr = returnedStr.replace(/ и /gm, ', ')
-        returnedStr = returnedStr + ` денег`
+        returnedStr = returnedStr.replace(/ и /gm, ', ') 
+        let and = "";
+        length == 0 ? and = '' : and = " и "
+        returnedStr = returnedStr + and + 'денег'
     }
     return returnedStr
 })
@@ -254,4 +253,4 @@ const getMissingComponent = computed(() => {
     }
 }
 
-</style>../stores/robotStore
+</style>../functions/grammaticalFunctions

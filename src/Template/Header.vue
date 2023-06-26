@@ -50,4 +50,4 @@ const scrollTo = () => {
             justify-content: center;
         }
       }
-</style>../stores/robotStore
+</style>

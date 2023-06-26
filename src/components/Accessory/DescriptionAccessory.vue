@@ -7,7 +7,7 @@
 </template>
 
 <script setup lang="ts">
-import { getNoun }  from '../../DeclensionOfNouns/declension'
+import { getNoun }  from '../../functions/grammaticalFunctions'
 interface description {
     title: { type: String, required: true },
     cost: { type: Number, required: true},

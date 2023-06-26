@@ -7,13 +7,11 @@ export type accessoryType = {
 }
 
 export type defaultAccessory = {
+    name: string,
     title: string,
     cost: number,
     sellCost: number,
-    count: number,
-    installed: number,
-    required: number,
-    completed: boolean
+    count: number
 }
 
 export type component = {

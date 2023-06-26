@@ -163,4 +163,4 @@ onUnmounted(() => {
 
     }
 }
-</style>../stores/types/Notification
+</style>

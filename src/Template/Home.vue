@@ -1,7 +1,7 @@
 <template>
     <div class="home">
 
-        <pagination :page="'01'" :show-arrow="true"></pagination>
+        <pagination :page="1" :show-arrow="true"></pagination>
 
         <div class="content">
             <div class="home__description">
@@ -80,4 +80,4 @@ const robotStore = useRobotStore();
         flex-direction: column-reverse;
     }
 }
-</style>../stores/robotStore
+</style>

@@ -1,6 +1,6 @@
 <template>
     <div class="wallet">
-        <pagination :page="'02'"></pagination>
+        <pagination :page="2"></pagination>
 
         <div class="content">
             <title>Кошелёк криптовалют</title>
@@ -22,7 +22,7 @@
 
 <script setup lang="ts">
 import { useRobotStore } from "../stores/RobotStore"
-import { getNoun }  from '../DeclensionOfNouns/declension'
+import { getNoun }  from '../functions/grammaticalFunctions'
 
 import Title from '../components/UI/Title.vue'
 import CoinList from '../components/Wallet/CoinList.vue'
@@ -57,4 +57,4 @@ const robotStore = useRobotStore();
         }
       }
  
-</style>../stores/robotStore
+</style>../functions/grammaticalFunctions
