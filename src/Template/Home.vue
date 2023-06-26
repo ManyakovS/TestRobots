@@ -50,7 +50,7 @@ const robotStore = useRobotStore();
         width: 19.1vw;
         background-repeat: no-repeat;
         background-size: cover;
-        background-image: url(../assets/HomeRobots.svg);
+        background-image: url(../assets/HomeRobots.png);
     }
 
 }
@@ -60,13 +60,7 @@ const robotStore = useRobotStore();
         width: 236px;
         height: 206px;
     }
-}
-
-@media screen and (max-width: 1024px) {
-    .home__description {
-        width: 45%;
-    }
-}
+}   
 
 @media screen and (max-width: 767px) {
     .home{
