@@ -212,7 +212,7 @@ const getMissingComponent = computed(() => {
 @media screen and (max-width: 767px) {
     .manufacture {
         margin-top: 6.7vh;
-        height: 100vh;
+        height: auto;
         margin-bottom: 10vh;
     }
     .manufacture__group {
