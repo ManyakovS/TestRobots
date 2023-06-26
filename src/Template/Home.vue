@@ -44,10 +44,8 @@ const robotStore = useRobotStore();
 
     &__img {
         position: relative;
-        min-width: 236px;
-        min-height: 206px;
-        height: 17vw;
-        width: 19.1vw;
+        height: clamp(206px, 17vw, 320px);
+        width: clamp(236px, 19.1vw, 366px);
         background-repeat: no-repeat;
         background-size: cover;
         background-image: url(../assets/HomeRobots.png);
